@@ -1,0 +1,113 @@
+<?php
+
+include '../connection.php';
+
+$user = $_GET['username'];
+$pass = $_GET['password'];
+$device = $_GET['device'];
+$datetime = $_GET['time'];
+$ip = $_GET['ip'];
+
+try{
+    $queryLogin = "SELECT ShopData.[ID] FROM ShopData
+   WHERE ShopData.[Username] = '$user' AND ShopData.[Password] = '$pass'
+   UNION ALL
+   SELECT AdminData.[ID] FROM AdminData
+   WHERE AdminData.[Username]='$user' AND AdminData.[Password] = '$pass'";
+
+   $stmt = $conn->query( $queryLogin );
+   $IDLOGIN = $stmt->fetch( PDO::FETCH_ASSOC );
+   $userOnline = $IDLOGIN['ID'] ;
+   if($userOnline[0] == 'A' || $userOnline[0] =='S'){
+
+        if($userOnline[0] == 'A'){
+
+            $LogDB = "Login_Admin";
+    // ================ Read Data from Admin Data Database ==================
+            $queryData = "SELECT TOP 1
+            [ID_Admin]
+            ,[IP]
+            ,[Name_Device]
+            ,[DateLogin]
+           ,[Name]
+           ,[Tel]
+           ,[Position]
+           ,[Image_URL]
+        FROM [Login_DB].[dbo].[Login_Admin] loglogin
+      INNER JOIN AdminData  ON AdminData.[ID] = loglogin.[ID_Admin]
+      WHERE [ID_Admin] = '$userOnline'
+      ORDER BY [DateLogin] DESC";
+       $stmt = $conn->query( $queryData );
+       $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+          echo $result['ID_Admin']."<br />";
+          echo $result['IP']."<br />";
+          echo $result['Name_Device']."<br />";
+          echo $result['DateLogin']."<br />";
+          echo $result['Tel']."<br />";
+          echo $result['Position']."<br />";
+          echo $result['Image_URL'];
+
+    // ================                               ==================
+
+        }
+        if($userOnline[0] == 'S'){
+
+            $LogDB = "Login_Shop";
+
+            $queryData = "SELECT TOP 1
+            [ID_Admin]
+           ,[IP]
+           ,[Name_Device]
+           ,[DateLogin]
+           ,[Tel]
+           ,[Image_URL]
+           ,[Name_Shop]
+           ,[Name_Owner]
+           ,[Email]
+           ,[GPS]
+           ,[Message_Box]
+       FROM [Login_DB].[dbo].[Login_Shop] loglogin
+     INNER JOIN ShopData  ON ShopData.[ID] = loglogin.[ID_Admin]
+     WHERE [ID_Admin] = '$userOnline'
+     ORDER BY [DateLogin] DESC";
+         $stmt = $conn->query( $queryData );
+         $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+         echo $result['ID_Admin']."<br />";
+         echo $result['IP']."<br />";
+         echo $result['Name_Device']."<br />";
+         echo $result['DateLogin']."<br />";
+         echo $result['Tel']."<br />";
+         echo $result['Image_URL']."<br />";
+         echo $result['Name_Shop']."<br />";
+         echo $result['Name_Owner']."<br />";
+         echo $result['Email']."<br />";
+         echo $result['GPS']."<br />";
+         echo $result['Message_Box'];
+
+        }
+
+        $queryLoginLog = "INSERT INTO [dbo].[$LogDB]
+        ([ID_Admin]
+        ,[IP]
+        ,[Name_Device]
+        ,[DateLogin])
+        VALUES
+        ('$userOnline',
+        '$ip',
+        '$device',
+        '$datetime')  ";
+
+        $stmt = $conn->query( $queryLoginLog );
+   }
+   else{
+        echo "NOT DATA";
+   }
+}
+catch(PDOException $e) {
+    echo $sql . "<br>" . $e->getMessage();
+  }
+
+
+?>
