@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+// ------------------     Text Event        -----------------------
 class TextEvent extends StatelessWidget {
   const TextEvent({
     Key key,
@@ -26,6 +26,7 @@ class TextEvent extends StatelessWidget {
     );
   }
 }
+// ------------------     Button event       -----------------------
 class ButtonAccessSystem extends StatelessWidget {
   final Function Goto;
   final FocusNode mynode;
@@ -51,7 +52,7 @@ class ButtonAccessSystem extends StatelessWidget {
     );
   }
 }
-
+// ------------------     Button google and line and facebook Event        -----------------------
 class ButtonAccess extends StatelessWidget {
   final String AccessText;
   final Color ButColor;
@@ -87,7 +88,7 @@ class ButtonAccess extends StatelessWidget {
     );
   }
 }
-
+// ------------------     'OR'        -----------------------
 class TextOr extends StatelessWidget {
   const TextOr({
     Key key,
@@ -128,11 +129,12 @@ class TextOr extends StatelessWidget {
     );
   }
 }
-
+// ------------------      2 text event      -----------------------
 class TextRegis extends StatelessWidget {
-  final Function Goto;
+  final Function GotoRegister;
+  final Function GotoFogon;
   const TextRegis({
-    Key key, this.Goto,
+    Key key, this.GotoRegister, this.GotoFogon,
   }) : super(key: key);
 
   @override
@@ -143,7 +145,7 @@ class TextRegis extends StatelessWidget {
         children: [
           Container(
             child: FlatButton(
-              onPressed: Goto,
+              onPressed: GotoRegister,
               child: Text(
                 'ลงทะเบียน',
                 style: TextStyle(color: Colors.white),
@@ -155,7 +157,7 @@ class TextRegis extends StatelessWidget {
           ),
           Container(
             child: FlatButton(
-              onPressed: Goto,
+              onPressed: GotoFogon,
               child: Text(
                 'ลืมรหัสผ่าน',
                 style: TextStyle(color: Colors.white),
@@ -167,7 +169,7 @@ class TextRegis extends StatelessWidget {
     );
   }
 }
-
+// ------------------    spans       -----------------------
 class Space extends StatelessWidget {
   final double EmtySpace;
 
@@ -183,7 +185,7 @@ class Space extends StatelessWidget {
     );
   }
 }
-
+// ------------------     text input       -----------------------
 class TextAccount extends StatelessWidget {
   final IconData IconCheng;
   final TextEditingController controller;
@@ -191,10 +193,11 @@ class TextAccount extends StatelessWidget {
   final FocusNode mynode;
   final String hintext;
   final bool autofocus;
+  final bool obsure;
   const TextAccount({
     Key key,
     this.IconCheng,
-    this.controller, this.nextnode, this.mynode, this.hintext, this.autofocus,
+    this.controller, this.nextnode, this.mynode, this.hintext, this.autofocus, this.obsure,
   }) : super(key: key);
 
   @override
@@ -203,6 +206,7 @@ class TextAccount extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(8)),
       child: TextFormField(
+        obscureText: obsure,
         focusNode: mynode,
         autofocus: autofocus,
         onEditingComplete: ()=>{nextnode.requestFocus()},
@@ -218,7 +222,7 @@ class TextAccount extends StatelessWidget {
     );
   }
 }
-
+// ------------------     Logo        -----------------------
 class ImageLogo extends StatelessWidget {
   const ImageLogo({
     Key key,
