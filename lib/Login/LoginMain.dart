@@ -29,10 +29,28 @@ class LoginState extends State<LoginMain> {
       var data = await conn.login(userController.text, passController.text,
           "Flutter App Test", "192.168.1.1");
       if (data != null) {
-        localStorage.setItem('UserOnline', data);
+        if(data['ID_Admin'][0] != 'N'){
+
+          localStorage.setItem('UserOnline', data);
+          if(data['ID_Admin'][0] == 'A'){
+
+          }
+          else if(data['ID_Admin'][0] == 'S'){
+
+          }
+          else{
+
+          }
+        }
+        else{
+          _showMyDialog(context, 'กรุณาใส่บัญชีผู้ใช้งานเเละรหัสผ่าน\nให้ถูกต้อง');
+        }
       } else {
-        print('Error value is NULL');
+       // _showMyDialog(context, 'เกิดปัญหาด้านเครือข่าย\nกรุณาลองใหม่ภายหลัง');
       }
+    }
+    else {
+      _showMyDialog(context, 'กรุณาใส่บัญชีผู้ใช้งานเเละรหัสผ่าน\nให้ครบถ้วน');
     }
   }
 
@@ -203,30 +221,66 @@ class Connection {
 
   Future<dynamic> login(
       String username, String password, String Device, String IP) async {
-    String url = "http://" +
-        SERVER +
-        "/login/Login2Database.php?username=" +
-        username +
-        "&password=" +
-        password +
-        "&device=" +
-        Device +
-        "&time=" +
-        DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()) +
-        "." +
-        DateTime.now().millisecond.toString() +
-        "&ip=" +
-        IP;
-    var response = await get(url);
-    if (response.statusCode == 200) {
-      if (response.body.isNotEmpty) {
-        var data = jsonDecode(response.body);
-        return data;
+    try {
+      String url = "http://" +
+          SERVER +
+          "/login/Login2Database.php?username=" +
+          username +
+          "&password=" +
+          password +
+          "&device=" +
+          Device +
+          "&time=" +
+          DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()) +
+          "." +
+          DateTime
+              .now()
+              .millisecond
+              .toString() +
+          "&ip=" +
+          IP;
+      var response = await get(url);
+      if (response.statusCode == 200) {
+        if (response.body.isNotEmpty) {
+          var data = jsonDecode(response.body);
+          return data;
+        } else {
+          return null;
+        }
       } else {
         return null;
       }
-    } else {
-      return null;
     }
+    catch (error) {
+      print('$error');
   }
+  }
+
+}
+
+Future<void> _showMyDialog(BuildContext context,String dialogMessage) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('AlertDialog Title'),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Text(dialogMessage),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: Text('ยืนยัน'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }
