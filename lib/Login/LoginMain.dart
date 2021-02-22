@@ -36,6 +36,7 @@ class LoginState extends State<LoginMain> {
 
           if(data['ID_Admin'][0] == 'A'){
             var Inbox = await conn.Inbox();
+            localStorage.setItem('InboxAdmin', Inbox);
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => MainInbox()));
           }
@@ -183,9 +184,6 @@ class Admin {
       this.Image_URL,
       this.InBox});
 
-  _ReadInbox(){
-
-  }
 }
 
 class Shop {
