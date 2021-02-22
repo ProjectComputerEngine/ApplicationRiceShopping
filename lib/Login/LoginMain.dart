@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:ApplicationRiceShopping/Admin/InBoxMain.dart';
+
 import './Widget/TextWidget.dart';
 import 'package:flutter/material.dart';
 import './Style/Color.dart';
@@ -30,10 +32,12 @@ class LoginState extends State<LoginMain> {
           "Flutter App Test", "192.168.1.1");
       if (data != null) {
         if(data['ID_Admin'][0] != 'N'){
-
           localStorage.setItem('UserOnline', data);
-          if(data['ID_Admin'][0] == 'A'){
 
+          if(data['ID_Admin'][0] == 'A'){
+            var Inbox = await conn.Inbox();
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MainInbox()));
           }
           else if(data['ID_Admin'][0] == 'S'){
 
@@ -167,9 +171,21 @@ class Admin {
   final String Tel;
   final String Position;
   final String Image_URL;
+  final List<dynamic> InBox;
 
-  Admin(this.ID, this.Name_Device, this.DateLogin, this.Name, this.Tel,
-      this.Position, this.Image_URL);
+  Admin(
+      {this.ID,
+      this.Name_Device,
+      this.DateLogin,
+      this.Name,
+      this.Tel,
+      this.Position,
+      this.Image_URL,
+      this.InBox});
+
+  _ReadInbox(){
+
+  }
 }
 
 class Shop {
@@ -185,7 +201,7 @@ class Shop {
   final String Message_Box;
 
   Shop(
-      this.ID,
+      {this.ID,
       this.Name_Device,
       this.DateLogin,
       this.Name_Shop,
@@ -194,7 +210,7 @@ class Shop {
       this.Address,
       this.Image_URL,
       this.Email,
-      this.Message_Box);
+      this.Message_Box});
 }
 
 class Connection {
@@ -215,6 +231,18 @@ class Connection {
         return null;
       }
     } else {
+      return null;
+    }
+  }
+
+  Future<List<dynamic>> Inbox() async {
+    String url = "http://"+SERVER+"/Inbox/messageinbox.php";
+    var response = await get(url);
+    if(response.statusCode == 200){
+      List<dynamic> Inbox = jsonDecode(response.body);
+        return Inbox;
+    }
+    else{
       return null;
     }
   }
