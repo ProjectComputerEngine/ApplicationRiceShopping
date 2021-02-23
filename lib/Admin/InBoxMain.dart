@@ -22,6 +22,7 @@ class _MainInboxState extends State<MainInbox> {
     });
   }
 
+
   @override
   void initState() {
     inbox = StreamController(onListen: count);
@@ -49,7 +50,7 @@ class _MainInboxState extends State<MainInbox> {
                           context,
                           MaterialPageRoute(
                             builder: (context) =>
-                                MainMessage(inbox: inbox[index]['Name'],),
+                                MainMessage(inbox: inbox[index]['Name'],IDInbox:inbox[index]['ID_Message'],IDSender: 'A000000',),
                           ));
                     },
                     title: Text('${inbox[index]['Name']}'),
@@ -57,7 +58,7 @@ class _MainInboxState extends State<MainInbox> {
                     trailing: Column(
                       children: [
                         Container(
-                          child: Text('${inbox[index]['New']}'),
+                          child: Text('${inbox[index]['NewShop']}'),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.red,
