@@ -3,6 +3,11 @@ import 'package:flutter/cupertino.dart';
 import './Widget/CheckBocWidget.dart';
 
 class ChatBoxMain extends StatefulWidget {
+  final String inbox;
+  final String IDInbox;
+  final String IDSender;
+  ChatBoxMain({this.inbox, this.IDInbox, this.IDSender});
+
   @override
   State<StatefulWidget> createState() {
     return ChatBoxStat();
@@ -25,7 +30,7 @@ class ChatBoxStat extends State<ChatBoxMain> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   BackButtons(),
-                  NameText(),
+                  NameText(name:widget.inbox),
                   CallButton(),
                   SettingButton(),
                 ],
@@ -44,19 +49,19 @@ class ChatBoxStat extends State<ChatBoxMain> {
                     Spaceheight(),
                     AdminText(),
                   ],
-                ))
-          ],
-        ),
-      ),
-      bottomNavigationBar: Container(
-        color: Colors.black38,
-        height: MediaQuery.of(context).size.height * 0.08,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            PhotoButton(),
-            AccessField(),
-            SendButton(),
+                )),
+            Container(
+              color: Colors.black38,
+              height: MediaQuery.of(context).size.height * 0.075,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  PhotoButton(),
+                  AccessField(),
+                  SendButton(),
+                ],
+              ),
+            ),
           ],
         ),
       ),

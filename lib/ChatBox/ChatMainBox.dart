@@ -1,6 +1,11 @@
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:http/http.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import './Widget/TextWidget.dart';
+import 'CheckBox.dart';
 
 class ChatMain extends StatefulWidget {
   @override
@@ -10,6 +15,24 @@ class ChatMain extends StatefulWidget {
 }
 
 class ChatState extends State<ChatMain> {
+  int i = 0;
+  StreamController inbox;
+  Stream stream;
+
+  void count() {
+    Timer.periodic(Duration(seconds: 1), (timer) async {
+      var inboX = await Inbox();
+      print('Inbox render');
+      inbox.add(inboX);
+    });
+  }
+
+  @override
+  void initState() {
+    inbox = StreamController(onListen: count);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,41 +50,68 @@ class ChatState extends State<ChatMain> {
                     MediaQuery.of(context).size.width * 0.05,
                     0),
                 child: Column(
-                  children: [BackButton(), MassageTitle(), SearchBar()],
+                  children: [
+                    Container(
+                        alignment: Alignment.centerLeft,
+                        child: BackButton(
+                          color: Colors.white,
+                        )),
+                    MassageTitle(),
+                    SearchBar()
+                  ],
                 ),
               ),
               Flexible(
-                child: ListView(
-                  padding: EdgeInsets.fromLTRB(
-                      MediaQuery.of(context).size.width * 0.05,
-                      0.05,
-                      MediaQuery.of(context).size.width * 0.05,
-                      0.05),
-                  children: [
-                    SpaceMessage(),
-                    MessageButtons(
-                      NewNameColor: Colors.white,
-                      NewMessgeText: '1',
-                      ChangeColorsCircle: Colors.red,
-                      NewColorText: Colors.white,
-                      TimeColor: Colors.white,
-                    ),
-                    SpaceMessage(),
-                    MessageButtons(
-                      NewNameColor: Colors.white24,
-                      NewMessgeText: '',
-                      ChangeColorsCircle: Color.fromRGBO(32, 50, 50, 0),
-                      NewColorText: Colors.white24,
-                      TimeColor: Colors.white24,
-                    ),
-
-                  ],
-                ),
+                child: StreamBuilder(
+                    stream: inbox.stream,
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      List<dynamic> inbox;
+                      if (snapshot.hasData) {
+                        inbox = snapshot.data;
+                        return ListView.builder(
+                          padding: EdgeInsets.fromLTRB(
+                              MediaQuery.of(context).size.width * 0.05,
+                              0.05,
+                              MediaQuery.of(context).size.width * 0.05,
+                              0.05),
+                          itemBuilder: (conxt, index) {
+                            return Column(children: [
+                              MessageButtons(
+                                NewNameColor: Colors.white,
+                                NewMessgeText: '${inbox[index]['NewShop']}',
+                                nameUesr: '${inbox[index]['Name']}',
+                                lastmessage: '${inbox[index]['Message_Last']}',
+                                imageurl: '${inbox[index]['Image_URL']}',
+                                time: '${inbox[index]['Update_Lasttime']}',
+                                ChangeColorsCircle: Colors.red,
+                                NewColorText: Colors.white,
+                                TimeColor: Colors.white,
+                                gotoMessage: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ChatBoxMain(
+                                                IDSender: 'A000000',
+                                                IDInbox: inbox[index]
+                                                    ['ID_Message'],
+                                                inbox: inbox[index]['Name'],
+                                              )));
+                                },
+                              ),
+                              SpaceMessage(),
+                            ]);
+                          },
+                          itemCount: inbox.length,
+                        );
+                      } else {
+                        return CircularProgressIndicator();
+                      }
+                    }),
               ),
             ],
           )),
       bottomNavigationBar: Container(
-        height: MediaQuery.of(context).size.height * 0.1,
+        height: MediaQuery.of(context).size.height * 0.075,
         color: Colors.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -90,5 +140,16 @@ class ChatState extends State<ChatMain> {
         ),
       ),
     );
+  }
+}
+
+Future<List<dynamic>> Inbox() async {
+  String url = "http://" + "192.168.1.2:8080" + "/Inbox/messageinbox.php";
+  var response = await get(url);
+  if (response.statusCode == 200) {
+    List<dynamic> Inbox = jsonDecode(response.body);
+    return Inbox;
+  } else {
+    return null;
   }
 }

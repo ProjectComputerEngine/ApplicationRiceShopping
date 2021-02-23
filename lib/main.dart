@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import './Login/LoginMain.dart';
 import './Admin/AdminMain.dart';
 import './ChatBox/ChatMainBox.dart';
+import './ChatBox/CheckBox.dart';
 void main() {
   runApp(MyApp());
 }

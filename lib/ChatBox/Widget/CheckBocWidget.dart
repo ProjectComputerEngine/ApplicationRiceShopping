@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../ChatMainBox.dart';
 class AdminText extends StatelessWidget {
   const AdminText({
     Key key,
@@ -156,15 +157,16 @@ class CallButton extends StatelessWidget {
 }
 
 class NameText extends StatelessWidget {
+  final String name;
   const NameText({
-    Key key,
+    Key key, this.name,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Text(
-        'ชื่อxxxxxxx',
+        '$name',
         style: TextStyle(color: Colors.white, fontSize: 18),
       ),
       alignment: Alignment.centerLeft,
@@ -184,7 +186,9 @@ class BackButtons extends StatelessWidget {
       child: FlatButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
         minWidth: MediaQuery.of(context).size.width * 0,
-        onPressed: () => {},
+        onPressed: () => {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMain() ))
+        },
         child: Icon(
           Icons.arrow_back_ios,
           size: 20,

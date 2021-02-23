@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class SpaceMessage extends StatelessWidget {
   const SpaceMessage({
     Key key,
@@ -18,15 +19,30 @@ class MessageButtons extends StatelessWidget {
   final Color NewColorText;
   final String NewMessgeText;
   final Color ChangeColorsCircle;
+  final String nameUesr;
+  final String lastmessage;
+  final String time;
+  final String imageurl;
+  final Function gotoMessage;
+
   const MessageButtons({
-    Key key, this.NewMessgeText, this.ChangeColorsCircle, this.NewColorText, this.NewNameColor, this.TimeColor,
+    Key key,
+    this.NewMessgeText,
+    this.ChangeColorsCircle,
+    this.NewColorText,
+    this.NewNameColor,
+    this.TimeColor,
+    this.nameUesr,
+    this.lastmessage,
+    this.time,
+    this.imageurl, this.gotoMessage,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FlatButton(
-      onPressed: () => {},
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8) ),
+      onPressed: gotoMessage,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       color: Color.fromRGBO(32, 50, 50, 5),
       child: Container(
         height: MediaQuery.of(context).size.width * 0.15,
@@ -41,11 +57,14 @@ class MessageButtons extends StatelessWidget {
                   0.01),
               width: MediaQuery.of(context).size.width * 0.12,
               decoration: ShapeDecoration(
-                  color: Colors.white, shape: CircleBorder()),
+                  image: DecorationImage(
+                    image: NetworkImage('$imageurl'),
+                  ),
+                  color: Colors.white,
+                  shape: CircleBorder()),
             ),
             Container(
               width: MediaQuery.of(context).size.width * 0.02,
-
             ),
             Container(
               alignment: Alignment.centerLeft,
@@ -53,9 +72,16 @@ class MessageButtons extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text('ชื่อผู้ใช้',style: TextStyle(color: NewNameColor,fontSize: 12),),
-                  Text('ข้อความล่าสุด',style: TextStyle(color:NewColorText,fontSize: 10),),
-                ],),
+                  Text(
+                    '$nameUesr',
+                    style: TextStyle(color: NewNameColor, fontSize: 12),
+                  ),
+                  Text(
+                    '$lastmessage',
+                    style: TextStyle(color: NewColorText, fontSize: 10),
+                  ),
+                ],
+              ),
             ),
             Container(
               alignment: Alignment.centerRight,
@@ -63,18 +89,26 @@ class MessageButtons extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text('06:00 น.',style: TextStyle(color: TimeColor,fontSize:8),),
+                  Text(
+                    '$time',
+                    style: TextStyle(color: TimeColor, fontSize: 8),
+                  ),
                   Container(
                     alignment: Alignment.center,
-                    height:MediaQuery.of(context).size.width * 0.055,
+                    height: MediaQuery.of(context).size.width * 0.055,
                     width: MediaQuery.of(context).size.width * 0.055,
                     decoration: ShapeDecoration(
-                        color: ChangeColorsCircle,
-                        shape: CircleBorder()),
-                    child: Text(NewMessgeText,style: TextStyle(color: Colors.white70,fontSize: 8,),),
+                        color: ChangeColorsCircle, shape: CircleBorder()),
+                    child: Text(
+                      NewMessgeText,
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 8,
+                      ),
+                    ),
                   )
-
-                ],),
+                ],
+              ),
             )
           ],
         ),
