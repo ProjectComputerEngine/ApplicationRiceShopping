@@ -6,16 +6,28 @@ GO
            ,<Num, int,>
            ,<New, int,>
            ,<ID_Shop, char(7),>
+           ,<Message_Last, nvarchar(100),>
 */
 INSERT INTO [dbo].[Inbox_Index]
            ([ID_Message]
            ,[Update_Lasttime]
            ,[Num]
-           ,[New]
-           ,[ID_Shop])
+           ,[NewShop]
+		   ,[NewAdmin]
+           ,[Message_Last])
      VALUES
-           ('MS00000000','',23,23,'S000000'),
-		    ('MS00000001','',23,23,'S000001')
+           ('MS00000000',
+		   '2020-02-23 02:01:00.000',
+		   0,
+		   0,
+		   0,
+		   N'สนใจครับ!!'),
+		    ('MS00000001',
+		   '2020-02-23 02:02:00.000',
+		   0,
+		   0,
+		   0,
+		   N'สนใจครับ!!')
 GO
 
 
