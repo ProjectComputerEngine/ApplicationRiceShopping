@@ -14,7 +14,7 @@ class ChatState extends State<ChatMain> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromRGBO(32, 50, 50, 10),
-      body: Container(
+      body: Card(
           margin: MediaQuery.of(context).padding,
           child: Column(
             children: [
@@ -27,7 +27,7 @@ class ChatState extends State<ChatMain> {
                     MediaQuery.of(context).size.width * 0.05,
                     0),
                 child: Column(
-                  children: [BackButton(), MassageTitle(), SearchBar()],
+                  children: [BackButtons(), MassageTitle(), SearchBar()],
                 ),
               ),
               Flexible(
