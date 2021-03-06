@@ -15,25 +15,25 @@ GO
 INSERT INTO [dbo].[Shop_Data]
            ([ID]
            ,[Name_Shop]
-           ,[Name_Owner]
+           ,[Name]
            ,[Tel]
            ,[Address]
+		   ,[Image_URL]
            ,[GPS]
            ,[Username]
            ,[Password]
-           ,[Email]
-           ,[Message_Box])
+           ,[Email])
      VALUES
-           ('S000001',
-		   N'ร้านขายไก่',
-		   N'Hirio Kubayyai',
+           ('S1',
+		   N'ร้านขายข่าว',
+		   N'icon user',
 		   '0963256999',
 		   N'xxxxxxxx หมู่ xxxxxx ต.xxxxx อ.xxxxxx จ.xxxxxx xxxxxxxx ',
+		   'http://simpleicon.com/wp-content/uploads/user-5.png',
 		   'xxxxxxx,xxxxxxxx',
-		   'Shop1',
+		   'Shop2',
 		   '1234',
-		   'xxxxx@xxxxxx.com',
-		   'MS00000001')
+		   'xxxxx@xxxxxx.com')
 GO
 
 

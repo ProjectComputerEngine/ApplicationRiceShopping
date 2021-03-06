@@ -1,9 +1,9 @@
-SELECT COUNT(Status)
-[New]
-FROM [Inbox_Message] inbox
-INNER JOIN Order_Message om on inbox.[ID_Order] = om.[No_Order]
-INNER JOIN  MS00000000 ms on inbox.[No_Message] = ms.[No]
-WHERE [Status] = 0 AND om.[ID_Sender] ='S000000'
+SELECT TOP 2 ms.[No],im.No_Message,ID_Order,No_Order,[message],[Date] 
+FROM [S1] ms
+INNER JOIN [Inbox_Message] im on ms.No = im.[No_Message] 
+INNER JOIN [Order_Message] om on im.[ID_Order] = om.[No_Order]
 
-
-SELECT TOP(1000) *FROM [MESSAGE_DB].[dbo].MS00000000
+--WHERE im.StatusAdmin = 0  
+--WHERE im.StatusShop = 0 
+--ORDER BY om.[Date] DESC 
+SELECT TOP(1000) *FROM [MESSAGE_DB].[dbo].S0

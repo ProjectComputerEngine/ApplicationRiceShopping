@@ -104,7 +104,12 @@ class ChatState extends State<ChatMain> {
                           itemCount: inbox.length,
                         );
                       } else {
-                        return CircularProgressIndicator();
+                        return Center(
+                            child: SizedBox(
+                          child: CircularProgressIndicator(strokeWidth: 5,),
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          height: MediaQuery.of(context).size.height * 0.1,
+                        ));
                       }
                     }),
               ),

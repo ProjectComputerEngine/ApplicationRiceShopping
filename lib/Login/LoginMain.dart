@@ -10,7 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:ApplicationRiceShopping/ChatBox/ChatMainBox.dart';
 
-Connection conn = Connection('192.168.1.2:8080');
+Connection conn = Connection('128.199.110.176:8080');
 
 class LoginMain extends StatefulWidget {
   @override
@@ -26,7 +26,12 @@ class LoginState extends State<LoginMain> {
   FocusNode usernameNode;
   FocusNode passwordNode;
   FocusNode loginNode;
+  _LoginChackUserOnline() async {
+    var userOnline = await localStorage.getItem('UserOnline');
+    if (userOnline != null){
 
+    }
+  }
   _LoginState() async {
     if (userController.text.isNotEmpty && passController.text.isNotEmpty) {
       var data = await conn.login(userController.text, passController.text,
@@ -165,27 +170,6 @@ class LoginState extends State<LoginMain> {
   }
 }
 
-class Admin {
-  final String ID;
-  final String Name_Device;
-  final String DateLogin;
-  final String Name;
-  final String Tel;
-  final String Position;
-  final String Image_URL;
-  final List<dynamic> InBox;
-
-  Admin(
-      {this.ID,
-        this.Name_Device,
-        this.DateLogin,
-        this.Name,
-        this.Tel,
-        this.Position,
-        this.Image_URL,
-        this.InBox});
-
-}
 
 class Shop {
   final String ID;
