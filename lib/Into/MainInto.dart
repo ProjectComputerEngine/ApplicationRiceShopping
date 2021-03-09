@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import '../Login/LoginMain.dart';
+import '../Connection.dart';
+import '../Login/Widget/TextWidget.dart';
 class FristPage extends StatefulWidget {
   @override
   _FirstPageState createState() => _FirstPageState();
 }
 
 class _FirstPageState extends State<FristPage> {
+
   @override
-  void initState() {
+  initState() {
     timerLinkPage(context);
     super.initState();
   }
@@ -16,17 +19,14 @@ class _FirstPageState extends State<FristPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white12,
-      body: Center(
-          child: Container(
-        child: Image.asset(
-          'res/logo.png',
-        ),
-      )),
+      body: Center(child: Container(child:Image.asset('res/logo.png') ,))
     );
   }
 }
-Future timerLinkPage (BuildContext context) {
-  return Future.delayed(Duration(seconds: 3),(){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => MainLogin() ));
+
+Future timerLinkPage(BuildContext context) {
+  return Future.delayed(Duration(seconds: 3), () {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => MainLogin()));
   });
 }
