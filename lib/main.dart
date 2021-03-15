@@ -4,6 +4,7 @@ import './Admin/AdminMain.dart';
 import './ChatBox/ChatMainBox.dart';
 import './Shop/ShopMain.dart';
 import './Shop/NewProductMain.dart';
+import './PersonalInformation/PersonalMain.dart';
 void main() {
   runApp(MyApp());
 }
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      home:NewProductMain(),
+      home:PersonalMain(),
     );
   }
 }
