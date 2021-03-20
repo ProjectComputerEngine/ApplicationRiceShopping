@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:ApplicationRiceShopping/Admin/Backend/AdminModule.dart';
 import 'package:ApplicationRiceShopping/Shop/Backend/ShopModule.dart';
@@ -13,6 +14,8 @@ class Login extends Connection {
   String ip;
   Admin adminData;
   Shop shopData;
+  Map<String,dynamic> jsonUser;
+
 
   Future<dynamic> Login2Database(
       {String username,
@@ -42,14 +45,21 @@ class Login extends Connection {
           showMyDialog(context,
               'บัขญีผู้ใช่งานหรือรหัสผ่านไม่ถูกต้อง \nกรุณาลองใหม่อีกครั้ง');
         }
-      }
-    } catch (error) {
+      }else{
+         }
+
+    }on TimeoutException catch (_) {
+      showMyDialog(context,
+          'การเขื่อมต่อล้มเหลว หรืออินเตอร์เน็ตขัดข้อง\nกรุณาลองใหม่อีกครั้ง');
+    }
+    catch (error) {
       showMyDialog(context,
           'การเขื่อมต่อล้มเหลว หรืออินเตอร์เน็ตขัดข้อง\nกรุณาลองใหม่อีกครั้ง');
     }
   }
 
   void _LoadAdminModule(dynamic jsonData) {
+    jsonUser = jsonData;
     adminData = Admin(
         ID: jsonData['ID_Admin'],
         Name_Device: jsonData['Name_Device'],
@@ -61,6 +71,7 @@ class Login extends Connection {
   }
 
   void _LoadShopModule(dynamic jsonData) {
+    jsonUser = jsonData;
     shopData = Shop(
         ID: jsonData['ID_Admin'],
         Name_Device: jsonData['Name_Device'],

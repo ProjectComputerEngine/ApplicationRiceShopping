@@ -10,6 +10,7 @@ class ProductControl extends Connection {
     Future<dynamic> productAll(BuildContext context) async {
       String data = await super.ProductAll(context: context);
       var jsonData = await jsonDecode(data);
+      print('Read Data Complete');
       return jsonData;
       //  for (int i = 0; i < jsonData.length; i++)
       // {

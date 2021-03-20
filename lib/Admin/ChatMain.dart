@@ -1,5 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
+
+import 'Widget/MenuNavigator.dart';
+
 import './Backend/MainChat.dart';
 import 'package:http/http.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,6 +23,8 @@ class ChatState extends State<ChatMain> {
   int i = 0;
   StreamController inbox;
   Stream stream;
+
+
 
   void count() {
     Timer.periodic(Duration(seconds: 1), (timer) async {
@@ -107,35 +112,7 @@ class ChatState extends State<ChatMain> {
               ),
             ],
           )),
-      bottomNavigationBar: Container(
-        height: MediaQuery.of(context).size.height * 0.075,
-        color: Colors.white,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            NavigationButton(
-              BarIcon: Icon(Icons.book),
-              BarText: 'แจ้งเตือน',
-            ),
-            NavigationButton(
-              BarIcon: Icon(Icons.format_align_justify_outlined),
-              BarText: 'คำสั่งซื้อ',
-            ),
-            NavigationButton(
-              BarIcon: Icon(Icons.home),
-              BarText: 'หน้าหลัก',
-            ),
-            NavigationButton(
-              BarIcon: Icon(Icons.account_circle),
-              BarText: 'ข้อมูลส่วนตัว',
-            ),
-            NavigationButton(
-              BarIcon: Icon(Icons.chat),
-              BarText: 'ข้อความ',
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: menu(),
     );
   }
 }

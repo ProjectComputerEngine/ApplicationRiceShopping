@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import './Widget/StorageWidget.dart';
 import './Backend/Product.dart';
 import 'package:ApplicationRiceShopping/Admin/ChatMain.dart';
-import 'NewProductMain.dart';
+// import 'NewProductMain.dart';
 import 'DetailProduct.dart';
 import 'Widget/MenuNavigator.dart';
 class StorageMain extends StatefulWidget {
@@ -16,13 +16,14 @@ class StorageMain extends StatefulWidget {
 
 class StorageStatus extends State<StorageMain> {
   ProductControl product = ProductControl();
-
+  List<Widget> list = [];
   @override
   void initState() {
     super.initState();
   }
   @override
   void dispose() {
+
     super.dispose();
   }
 
@@ -72,9 +73,11 @@ class StorageStatus extends State<StorageMain> {
                           child: FutureBuilder(
                             future: product.productAll(context),
                             builder: (context, snaphost) {
-                              List<Widget> list = [];
+
                               if (snaphost.hasData) {
                                 if(snaphost.connectionState == ConnectionState.done){
+
+                                  print('Write Data done');
                                   return ListView.builder(
                                     padding: EdgeInsets.zero,
                                     itemBuilder: (context, index)  {
@@ -158,13 +161,6 @@ class StorageStatus extends State<StorageMain> {
             ],
           ),
         ),
-        floatingActionButton: Container(
-          child: FloatingActionButton(
-            onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> NewProductMain()));},
-            child: Icon(Icons.add),
-            backgroundColor: Colors.red,
-          ),
-        )
         // Container(
         //   alignment: Alignment.bottomCenter,
         //   child: AddButton(

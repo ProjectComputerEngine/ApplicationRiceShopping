@@ -185,7 +185,7 @@ class ProductText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Text(
-        'คลังสินค้า',
+        'สินค้า',
         style: TextStyle(color: Colors.white, fontSize: 16),
       ),
       alignment: Alignment.centerLeft,
