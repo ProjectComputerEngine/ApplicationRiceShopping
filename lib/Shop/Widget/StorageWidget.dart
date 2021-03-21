@@ -289,7 +289,7 @@ class ProductCard extends StatelessWidget {
           borderRadius: BorderRadius.only(
               bottomRight: Radius.circular(8), bottomLeft: Radius.circular(8))),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.1,
+        height: MediaQuery.of(context).size.height * 0.12,
         padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.015,
             0, MediaQuery.of(context).size.width * 0.015, 0),
         decoration: BoxDecoration(

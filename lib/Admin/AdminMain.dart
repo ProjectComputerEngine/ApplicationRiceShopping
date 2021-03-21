@@ -2,6 +2,7 @@ import './Widget/TextWidget.dart';
 import 'package:flutter/material.dart';
 import './Style/Color.dart';
 import './Widget/MenuNavigator.dart';
+import 'package:ApplicationRiceShopping/Login/LoginMain.dart';
 
 class AdminMain extends StatefulWidget {
   @override
@@ -15,18 +16,37 @@ class AdminState extends State<AdminMain> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorAdmin.bg,
-      body: Container(
+      body: Stack(
+          children: [
+      Container(
+      decoration: BoxDecoration(
+      image: DecorationImage(
+          image: AssetImage("res/BackgroundShop.png"),
+        fit: BoxFit.cover),
+    ),
+    ),
+      Container(
         margin: MediaQuery.of(context).padding,
         child: Padding(
           padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.05,
               0, MediaQuery.of(context).size.width * 0.05, 0),
           child: ListView(
             children: [
+
               Container(
-                child: IconButton(
-                  icon: Icon(Icons.logout),
-                  onPressed: () {},
+
+                child: FlatButton(
+                  onPressed: () =>{
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MainLogin()))
+                  },
+                  child: IconButton(
+                    icon: Icon(Icons.logout,color: Colors.white,),
+                    alignment: Alignment.centerRight,
+                  ),
                 ),
+
+                padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width*0.01,0.01,MediaQuery.of(context).size.width*0.01,0.01),
+                alignment: Alignment.centerRight,
               ),
               TextFirstLine(),
               Space(
@@ -54,7 +74,7 @@ class AdminState extends State<AdminMain> {
               Space(
                 SpaceSize: MediaQuery.of(context).size.height * 0.01,
               ),
-              SupButton(),
+
               Space(
                 SpaceSize: MediaQuery.of(context).size.height * 0.01,
               ),
@@ -82,7 +102,7 @@ class AdminState extends State<AdminMain> {
             ],
           ),
         ),
-      ),
+      ),]),
       bottomNavigationBar: menu(),
     );
   }

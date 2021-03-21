@@ -96,7 +96,7 @@ class ChatBoxStat extends State<ChatBoxMain> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  BackButtons(),
+                  BackButton(),
                   NameText(name: 'Test'),
                   CallButton(),
                   SettingButton(),
@@ -104,7 +104,16 @@ class ChatBoxStat extends State<ChatBoxMain> {
               ),
             ),
             Flexible(
-              child: ListView.builder(
+              child: Stack(
+                  children: [
+              Container(
+              decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("res/Background.png"),
+                fit: BoxFit.cover),
+    ),
+    ),
+              ListView.builder(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 itemBuilder: (context, index) {
                   return messageList[index];
@@ -129,7 +138,7 @@ class ChatBoxStat extends State<ChatBoxMain> {
               //         itemCount: messageList.length,
               //       );
               //     }),
-            ),
+            ]),),
             Container(
               color: Colors.black38,
               height: MediaQuery.of(context).size.height * 0.075,

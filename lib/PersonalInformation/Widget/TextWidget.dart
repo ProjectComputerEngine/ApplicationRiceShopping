@@ -48,6 +48,7 @@ class ClickButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Color.fromRGBO(255, 255, 255,30),
       child: Container(
         width: MediaQuery.of(context).size.width * 0.8,
         child: FlatButton(

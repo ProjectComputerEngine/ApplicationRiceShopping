@@ -37,7 +37,16 @@ class ChatBoxStat extends State<ChatBoxMain> {
               ),
             ),
             Flexible(
-                child: ListView(
+                child: Stack(
+                    children: [
+                Container(
+                decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("res/BackgroundShop.png"),
+                fit: BoxFit.cover),
+    ),
+    ),
+                ListView(
                   padding: EdgeInsets.fromLTRB(
                       MediaQuery.of(context).size.width * 0.05,
                       0,
@@ -49,7 +58,7 @@ class ChatBoxStat extends State<ChatBoxMain> {
                     Spaceheight(),
                     AdminText(),
                   ],
-                )),
+                )]),),
             Container(
               color: Colors.black38,
               height: MediaQuery.of(context).size.height * 0.075,

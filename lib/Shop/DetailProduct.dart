@@ -160,14 +160,22 @@ class NewProductState extends State<DetailProduct> {
           children: [
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
-              color: Color.fromRGBO(32, 50, 50, 10),
+              color: Color.fromRGBO(255, 234, 79, 5),
               height: MediaQuery.of(context).size.height * 0.08,
               child: Row(
-                children: [BackButtons(), AddProductText()],
+                children: [BackButton(color: Colors.white,), AddProductText()],
               ),
             ),
             Flexible(
-              child: ListView(
+              child:
+              Stack(children: [
+              Container(
+              decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("res/Background.png"),
+                fit: BoxFit.cover),
+    ),
+    ),ListView(
                 padding: EdgeInsets.fromLTRB(
                     MediaQuery.of(context).size.width * 0.05,
                     0,
@@ -306,7 +314,7 @@ class NewProductState extends State<DetailProduct> {
                   ),
                 ],
               ),
-            ),
+            ])),
           ],
         ),
       ),

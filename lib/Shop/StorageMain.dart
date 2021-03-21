@@ -42,11 +42,12 @@ class StorageStatus extends State<StorageMain> {
             children: [
               Container(
                 height: MediaQuery.of(context).size.height * 0.1,
-                color: Color.fromRGBO(32, 50, 50, 10),
+                color: Color.fromRGBO(255, 234, 79, 10),
                 child: Row(
                   children: [
-                    BackIcons(
-                      GotoBackPage: () => {},
+                    BackButton(
+                      color: Colors.white,
+
                     ),
                     ProductText(),
                   ],
@@ -55,8 +56,16 @@ class StorageStatus extends State<StorageMain> {
 
               //---------------//
               Flexible(
-                child: Container(
-                    color: Color.fromRGBO(32, 50, 50, 10),
+                child: Stack(children: [
+                Container(
+                decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("res/Background.png"),
+                  fit: BoxFit.cover),
+    ),
+    ),
+                Container(
+
                     child: ListView(
                       padding: EdgeInsets.zero,
                       children: [
@@ -157,7 +166,7 @@ class StorageStatus extends State<StorageMain> {
                         // SpaceDisplay(),
                       ],
                     )),
-              )
+              ]))
             ],
           ),
         ),
