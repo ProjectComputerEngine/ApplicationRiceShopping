@@ -21,6 +21,16 @@ class _MainLoginState extends State<MainLogin> {
   FocusNode passwordNode;
   FocusNode loginNode;
 
+  @override
+  void initState() {
+    localStorage = LocalStorage('userOnline');
+    usernameNode = FocusNode();
+    passwordNode = FocusNode();
+    loginNode = FocusNode();
+    login = Login();
+    super.initState();
+  }
+
   _LoginState() async {
     // localStorage.deleteItem('Shop');
     // localStorage.deleteItem('Admin');
@@ -50,19 +60,8 @@ class _MainLoginState extends State<MainLogin> {
   }
 
   @override
-  void initState() {
-    localStorage = LocalStorage('userOnline');
-    usernameNode = FocusNode();
-    passwordNode = FocusNode();
-    loginNode = FocusNode();
-    login = Login();
-    // localStorage = LocalStorage('User');
-    super.initState();
-  }
-
-  @override
   void dispose() {
-    localStorage.dispose();
+    // localStorage.dispose();
     usernameNode.dispose();
     passwordNode.dispose();
     loginNode.dispose();
@@ -76,88 +75,133 @@ class _MainLoginState extends State<MainLogin> {
       child: Scaffold(
 
         backgroundColor: ColorLogin.bg,
-        body: Container(
-          margin: MediaQuery.of(context).padding,
-          color: ColorLogin.bg,
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.05,
-                0, MediaQuery.of(context).size.width * 0.05, 0),
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: [
-                // TextEvent(
-                //   text: '> ข้าม',
-                //   Goto: () => {},
-                // ),
-                Space(
-                  EmtySpace: MediaQuery.of(context).size.height * 0.05,
+        body: FutureBuilder(
+          future: localStorage.ready,
+          builder:(context,snaphost) {
+            if(snaphost.hasData) {
+              return Container(
+                margin: MediaQuery
+                    .of(context)
+                    .padding,
+                color: ColorLogin.bg,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.05,
+                      0, MediaQuery
+                          .of(context)
+                          .size
+                          .width * 0.05, 0),
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    children: [
+                      // TextEvent(
+                      //   text: '> ข้าม',
+                      //   Goto: () => {},
+                      // ),
+                      Space(
+                        EmtySpace: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.05,
+                      ),
+                      ImageLogo(),
+                      Space(
+                        EmtySpace: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.05,
+                      ),
+                      TextAccount(
+                        IconCheng: Icons.account_circle,
+                        nextnode: passwordNode,
+                        mynode: usernameNode,
+                        obsure: false,
+                        autofocus: true,
+                        hintext: 'บัญชีผู้ใช้งาน',
+                        controller: userController,
+                      ),
+                      Space(
+                        EmtySpace: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.02,
+                      ),
+                      TextAccount(
+                        IconCheng: Icons.lock,
+                        nextnode: loginNode,
+                        mynode: passwordNode,
+                        obsure: true,
+                        autofocus: false,
+                        hintext: 'รหัสผ่าน',
+                        controller: passController,
+                      ),
+                      Space(
+                        EmtySpace: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.02,
+                      ),
+                      ButtonAccessSystem(
+                        Goto: () {
+                          _LoginState();
+                        },
+                        mynode: loginNode,
+                      ),
+                      Space(
+                        EmtySpace: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.01,
+                      ),
+                      TextRegis(
+                        GotoFogon: () => {},
+                        GotoRegister: () => {},
+                      ),
+                      Space(
+                        EmtySpace: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.03,
+                      ),
+                      TextOr(),
+                      Space(
+                        EmtySpace: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.05,
+                      ),
+                      ButtonAccess(
+                          Goto: () => {},
+                          AccessText: 'เข้าสู่ระบบด้วย Google',
+                          ButColor: Color.fromRGBO(245, 9, 9, 10)),
+                      Space(EmtySpace: MediaQuery
+                          .of(context)
+                          .size
+                          .height * 0.02),
+                      ButtonAccess(
+                          Goto: () => {},
+                          AccessText: 'เข้าสู่ระบบด้วย Facebook',
+                          ButColor: Color.fromRGBO(66, 103, 178, 10)),
+                      Space(EmtySpace: MediaQuery
+                          .of(context)
+                          .size
+                          .height * 0.02),
+                      ButtonAccess(
+                        Goto: () => {},
+                        AccessText: 'เข้าสู่ระบบด้วย Line',
+                        ButColor: Color.fromRGBO(3, 195, 2, 10),
+                      ),
+                    ],
+                  ),
                 ),
-                ImageLogo(),
-                Space(
-                  EmtySpace: MediaQuery.of(context).size.height * 0.05,
-                ),
-                TextAccount(
-                  IconCheng: Icons.account_circle,
-                  nextnode: passwordNode,
-                  mynode: usernameNode,
-                  obsure: false,
-                  autofocus: true,
-                  hintext: 'บัญชีผู้ใช้งาน',
-                  controller: userController,
-                ),
-                Space(
-                  EmtySpace: MediaQuery.of(context).size.height * 0.02,
-                ),
-                TextAccount(
-                  IconCheng: Icons.lock,
-                  nextnode: loginNode,
-                  mynode: passwordNode,
-                  obsure: true,
-                  autofocus: false,
-                  hintext: 'รหัสผ่าน',
-                  controller: passController,
-                ),
-                Space(
-                  EmtySpace: MediaQuery.of(context).size.height * 0.02,
-                ),
-                ButtonAccessSystem(
-                  Goto: () {
-                    _LoginState();
-                  },
-                  mynode: loginNode,
-                ),
-                Space(
-                  EmtySpace: MediaQuery.of(context).size.height * 0.01,
-                ),
-                TextRegis(
-                  GotoFogon: () => {},
-                  GotoRegister: () => {},
-                ),
-                Space(
-                  EmtySpace: MediaQuery.of(context).size.height * 0.03,
-                ),
-                TextOr(),
-                Space(
-                  EmtySpace: MediaQuery.of(context).size.height * 0.05,
-                ),
-                ButtonAccess(
-                    Goto: () => {},
-                    AccessText: 'เข้าสู่ระบบด้วย Google',
-                    ButColor: Color.fromRGBO(245, 9, 9, 10)),
-                Space(EmtySpace: MediaQuery.of(context).size.height * 0.02),
-                ButtonAccess(
-                    Goto: () => {},
-                    AccessText: 'เข้าสู่ระบบด้วย Facebook',
-                    ButColor: Color.fromRGBO(66, 103, 178, 10)),
-                Space(EmtySpace: MediaQuery.of(context).size.height * 0.02),
-                ButtonAccess(
-                  Goto: () => {},
-                  AccessText: 'เข้าสู่ระบบด้วย Line',
-                  ButColor: Color.fromRGBO(3, 195, 2, 10),
-                ),
-              ],
-            ),
-          ),
+              );
+            }
+            else{
+              return CircularProgressIndicator();
+            }
+          }
         ),
       ),
     );

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 class PictureProfile extends StatelessWidget {
+  final String url;
   const PictureProfile({
-    Key key,
+    Key key, this.url,
   }) : super(key: key);
 
   @override
@@ -10,15 +11,16 @@ class PictureProfile extends StatelessWidget {
       decoration: ShapeDecoration( shape:CircleBorder(),color:Colors.white),
       height: MediaQuery.of(context).size.height*0.125,
       width: MediaQuery.of(context).size.width*0.125,
-
+        child: Image.network('https://d2pa5gi5n2e1an.cloudfront.net/th/images/article/10890_TH/1.jpg'),
     );
   }
 }
 
 class TextBillButton extends StatelessWidget {
+  final Function SeleteStatus;
   final String TextInButtons;
   const TextBillButton({
-    Key key, this.TextInButtons,
+    Key key, this.TextInButtons, this.SeleteStatus,
   }) : super(key: key);
 
   @override
@@ -29,7 +31,7 @@ class TextBillButton extends StatelessWidget {
         width: MediaQuery.of(context).size.width*0.275,
         color: Colors.white,
         child: FlatButton(
-          onPressed: ()=>{},
+          onPressed: SeleteStatus,
           child: Text(TextInButtons,style: TextStyle(fontSize: 12),),
         ),
       ),

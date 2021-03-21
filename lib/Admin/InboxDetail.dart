@@ -1,27 +1,16 @@
 import 'dart:convert';
+import 'package:ApplicationRiceShopping/Connection.dart';
 import 'package:flutter/material.dart';
-import 'CheckBockBocWidget.dart';
+import 'Widget/CheckBockBocWidget.dart';
 import 'package:web_socket_channel/io.dart';
-import 'MessageModule.dart';
+import 'Backend/MessageModule.dart';
 import 'package:web_socket_channel/status.dart' as status;
 
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: ChatBoxMain(),
-    );
-  }
-}
-
 class ChatBoxMain extends StatefulWidget {
+  final String idSender;
+
+  const ChatBoxMain({Key key, this.idSender}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return ChatBoxStat();
@@ -29,6 +18,7 @@ class ChatBoxMain extends StatefulWidget {
 }
 
 class ChatBoxStat extends State<ChatBoxMain> {
+
   Message message;
 
   var resBody = {};
@@ -45,7 +35,25 @@ class ChatBoxStat extends State<ChatBoxMain> {
 
   @override
   void initState() {
-    channel = IOWebSocketChannel.connect('ws://192.168.43.152:8089');
+    channel = IOWebSocketChannel.connect(
+        Uri.parse('ws://192.168.1.48:8089?ID=${widget.idSender.trim()}'));
+    channel.stream.listen((event) {
+      print(event);
+      var data = jsonDecode(event);
+
+      if (data['ID'] == widget.idSender.trim()) {
+        messageList.add(UserText(
+          message: data['message'],
+          UrlImage: data['imageURL'],
+        ));
+      } else {
+        messageList.add(AdminText(
+          message: data['message'],
+          UrlImage: data['imageURL'],
+        ));
+      }
+      setState(() {});
+    });
     messageController = TextEditingController();
     super.initState();
   }
@@ -57,12 +65,12 @@ class ChatBoxStat extends State<ChatBoxMain> {
             message: messageController.text,
             imageURL: 'https://data.whicdn.com/images/341417835/original.jpg',
             time: '2021-03-09 01:41:00:000',
-            ID: 'S0',
+            ID: 'A',
             name: 'คนที่ 1');
+        resBody = {};
         resBody['message'] = message.message;
         resBody['name'] = message.name;
         resBody['imageURL'] = message.imageURL;
-        resBody['imageURL'] = message.time;
         resBody['ID'] = message.ID;
         var jsonData = jsonEncode(resBody);
         // message.add(AdminText(message: messageController.text,));
@@ -96,24 +104,31 @@ class ChatBoxStat extends State<ChatBoxMain> {
               ),
             ),
             Flexible(
-              child: StreamBuilder(
-                  stream: channel.stream,
-                  builder: (context, snaphost) {
-
-                    if (snaphost.hasData) {
-                      var data = jsonDecode(snaphost.data);
-                      if(snaphost.connectionState == ConnectionState.active){
-                        var data = jsonDecode(snaphost.data);
-                        messageList.add(AdminText(message: data['message'],));
-                      }
-                    } else {}
-                    return ListView.builder(
-                      itemBuilder: (context, index) {
-                        return messageList[index];
-                      },
-                      itemCount: messageList.length,
-                    );
-                  }),
+              child: ListView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                itemBuilder: (context, index) {
+                  return messageList[index];
+                },
+                itemCount: messageList.length,
+              ),
+              // StreamBuilder(
+              //     stream: channel.stream,
+              //     builder: (context, snaphost) {
+              //
+              //       if (snaphost.hasData) {
+              //         var data = jsonDecode(snaphost.data);
+              //         if(snaphost.connectionState == ConnectionState.active){
+              //           var data = jsonDecode(snaphost.data);
+              //           messageList.add(AdminText(message: data['message'],));
+              //         }
+              //       } else {}
+              //       return ListView.builder(
+              //         itemBuilder: (context, index) {
+              //           return messageList[index];
+              //         },
+              //         itemCount: messageList.length,
+              //       );
+              //     }),
             ),
             Container(
               color: Colors.black38,

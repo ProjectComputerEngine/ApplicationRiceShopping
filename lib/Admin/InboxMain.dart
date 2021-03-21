@@ -3,12 +3,12 @@ import 'dart:convert';
 
 import 'Widget/MenuNavigator.dart';
 
-import './Backend/MainChat.dart';
+import 'InboxDetail.dart';
 import 'package:http/http.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import './Widget/TextWidget.dart';
-import 'ChatBox.dart';
+// import 'ChatBox.dart';
 import './Backend/Chat.dart';
 
 class ChatMain extends StatefulWidget {
@@ -24,14 +24,10 @@ class ChatState extends State<ChatMain> {
   StreamController inbox;
   Stream stream;
 
-
-
-  void count() {
-    Timer.periodic(Duration(seconds: 1), (timer) async {
-      var inboX = await chat.listInbox(context);
-      print('Inbox render');
-      inbox.add(inboX);
-    });
+  Future<void> count() async {
+    var inboX = await chat.listInbox(context);
+    print('Inbox render');
+    inbox.add(inboX);
   }
 
   @override
@@ -60,9 +56,17 @@ class ChatState extends State<ChatMain> {
                   children: [
                     Container(
                         alignment: Alignment.centerLeft,
-                        child: BackButton(
-                          color: Colors.white,
-                        )),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                          BackButton(
+                            color: Colors.white,
+                          ),
+                          IconButton(icon: Icon(Icons.refresh_sharp,color: Colors.white,), onPressed:(){
+                            setState(() {
+                            });
+                          })
+                        ])),
                     MassageTitle(),
                     SearchBar()
                   ],
@@ -97,7 +101,7 @@ class ChatState extends State<ChatMain> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => MyApp()));
+                                          builder: (context) =>ChatBoxMain(idSender: inbox[index].ID_Message,)));
                                 },
                               ),
                               SpaceMessage(),
@@ -105,8 +109,16 @@ class ChatState extends State<ChatMain> {
                           },
                           itemCount: inbox.length,
                         );
+                      } else if (snapshot.hasError) {
+                        return Center(
+                          child: Container(
+                            child: IconButton(
+                              icon: Icon(Icons.refresh_sharp),
+                            ),
+                          ),
+                        );
                       } else {
-                        return CircularProgressIndicator();
+                        return Center(child: CircularProgressIndicator());
                       }
                     }),
               ),

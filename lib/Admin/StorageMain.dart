@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import './Widget/StorageWidget.dart';
 import './Backend/Product.dart';
-import 'package:ApplicationRiceShopping/Admin/ChatMain.dart';
+import 'package:ApplicationRiceShopping/Admin/InboxMain.dart';
 import 'NewProductMain.dart';
 import 'DetailProduct.dart';
 import 'Widget/MenuNavigator.dart';

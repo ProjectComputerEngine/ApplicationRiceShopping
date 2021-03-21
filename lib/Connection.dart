@@ -44,7 +44,7 @@ class Connection {
   }
 
   Future<String> Inbox({BuildContext context}) async {
-    String url = "http://$server/Inbox/messageinbox.php";
+    String url = "http://$server/inbox/messageinbox.php";
     var response = await get(url);
     if (response.statusCode == 200) {
       if(response.body.isNotEmpty){
@@ -91,5 +91,20 @@ class Connection {
     });
     return comlete;
   }
+  Future<String> OrderAll({BuildContext context,String status}) async {
+    String url = "http://$server/shopping/orderAll.php?status=$status";
+    var response = await get(url);
+    if (response.statusCode == 200) {
+      if(response.body.isNotEmpty){
+        return response.body;
+      }
+      else {
+        showMyDialog(context, 'การเชื่อมต่อล้มเหลว กรุณาลองใหม่อีกครั้ง !');
+      }
+    } else {
+      showMyDialog(context, 'การเชื่อมต่อล้มเหลว กรุณาลองใหม่อีกครั้ง !');
+    }
+  }
+
 }
 

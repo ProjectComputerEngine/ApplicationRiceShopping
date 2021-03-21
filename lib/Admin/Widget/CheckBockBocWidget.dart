@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 // import 'ChatMainBox.dart';
 class AdminText extends StatelessWidget {
   final String  message;
+  final String UrlImage;
   const AdminText({
-    Key key, this.message,
+    Key key, this.message, this.UrlImage,
   }) : super(key: key);
 
   @override
@@ -35,12 +36,7 @@ class AdminText extends StatelessWidget {
           Container(
             width: MediaQuery.of(context).size.width * 0.01,
           ),
-          Container(
-            height: MediaQuery.of(context).size.height * 0.07,
-            width: MediaQuery.of(context).size.width * 0.1,
-            decoration: ShapeDecoration(
-                shape: CircleBorder(), color: Colors.white),
-          ),
+          CircleAvatar(backgroundImage: NetworkImage(UrlImage),)
         ],
       ),
     );
@@ -49,8 +45,9 @@ class AdminText extends StatelessWidget {
 
 class UserText extends StatelessWidget {
   final String message;
+  final String UrlImage;
   const UserText({
-    Key key, this.message,
+    Key key, this.message, this.UrlImage,
   }) : super(key: key);
 
   @override
@@ -65,14 +62,12 @@ class UserText extends StatelessWidget {
           Container(
               child: Column(
                 children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    width: MediaQuery.of(context).size.width * 0.1,
-                    decoration: ShapeDecoration(
-                        shape: CircleBorder(), color: Colors.white),
-                  ),
+
                 ],
               )),
+
+
+          CircleAvatar(backgroundImage: NetworkImage(UrlImage),),
           SpaceWidth(),
           Container(
             alignment: Alignment.center,
@@ -86,6 +81,7 @@ class UserText extends StatelessWidget {
               message,
               style: TextStyle(color: Colors.white),
             ),
+
           ),
         ],
       ),

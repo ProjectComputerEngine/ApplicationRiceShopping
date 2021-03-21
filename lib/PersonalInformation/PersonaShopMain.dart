@@ -35,7 +35,7 @@ class PersonalState extends State<PersonalShopMain> {
   @override
   void dispose() {
     print('localStorage Dispose !');
-    localStorage.dispose();
+    // localStorage.dispose();
     super.dispose();
   }
 
@@ -58,7 +58,7 @@ class PersonalState extends State<PersonalShopMain> {
                 builder: (context, snapshost) {
                   if (snapshost.hasData) {
                     var shop = localStorage.getItem('Shop');
-                    localStorage.deleteItem('Shop');
+                    // localStorage.deleteItem('Shop');
                     return Container(
                       padding: EdgeInsets.fromLTRB(
                           MediaQuery.of(context).size.width * 0.01,

@@ -24,7 +24,7 @@ class _FirstPageState extends State<FristPage> {
   void dispose() {
     print('Dispose Main Into Complete');
     num = 1;
-    storage.dispose();
+    // storage.dispose();
     super.dispose();
   }
 

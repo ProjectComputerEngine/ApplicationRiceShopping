@@ -1,6 +1,6 @@
 import 'package:ApplicationRiceShopping/Admin/AdminMain.dart';
 import 'package:ApplicationRiceShopping/Admin/BillMain.dart';
-import 'package:ApplicationRiceShopping/Admin/ChatMain.dart';
+import 'package:ApplicationRiceShopping/Admin/InboxMain.dart';
 import 'package:flutter/material.dart';
 import 'package:ApplicationRiceShopping/PersonalInformation/PersonaAdminMain.dart';
 class menu extends StatelessWidget {

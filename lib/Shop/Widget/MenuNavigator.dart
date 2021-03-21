@@ -1,5 +1,5 @@
 import 'package:ApplicationRiceShopping/Admin/AdminMain.dart';
-import 'package:ApplicationRiceShopping/Admin/ChatMain.dart';
+import 'package:ApplicationRiceShopping/Admin/InboxMain.dart';
 import 'package:ApplicationRiceShopping/Shop/StorageMain.dart';
 import 'package:flutter/material.dart';
 import 'package:ApplicationRiceShopping/PersonalInformation/PersonaShopMain.dart';

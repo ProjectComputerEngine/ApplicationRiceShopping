@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../ChatMain.dart';
+import '../InboxMain.dart';
 class AdminText extends StatelessWidget {
   const AdminText({
     Key key,
