@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'Widget/CheckBockBocWidget.dart';
 import 'package:web_socket_channel/io.dart';
 import 'Backend/MessageModule.dart';
-import 'package:localstorage/localstorage.dart';
 import 'package:web_socket_channel/status.dart' as status;
 
 class ChatBoxMain extends StatefulWidget {
@@ -19,7 +18,7 @@ class ChatBoxMain extends StatefulWidget {
 }
 
 class ChatBoxStat extends State<ChatBoxMain> {
-  LocalStorage localStorage;
+
   Message message;
 
   var resBody = {};
@@ -27,7 +26,6 @@ class ChatBoxStat extends State<ChatBoxMain> {
   TextEditingController messageController;
 
   List<Widget> messageList = [];
-  List<dynamic> messageData=[];
 
   @override
   void dispose() {
@@ -37,14 +35,23 @@ class ChatBoxStat extends State<ChatBoxMain> {
 
   @override
   void initState() {
-    localStorage = LocalStorage('Message');
     channel = IOWebSocketChannel.connect(
-        Uri.parse('ws://192.168.1.48:8089?ID=${widget.idSender.trim()}&IDSender=A0'));
-    channel.stream.listen((event) async {
+        Uri.parse('ws://192.168.1.48:8089?ID=${widget.idSender.trim()}'));
+    channel.stream.listen((event) {
       print(event);
       var data = jsonDecode(event);
-      messageData.add(data);
-      await localStorage.setItem(widget.idSender,messageData);
+
+      if (data['ID'] == widget.idSender.trim()) {
+        messageList.add(UserText(
+          message: data['message'],
+          UrlImage: data['imageURL'],
+        ));
+      } else {
+        messageList.add(AdminText(
+          message: data['message'],
+          UrlImage: data['imageURL'],
+        ));
+      }
       setState(() {});
     });
     messageController = TextEditingController();
@@ -61,12 +68,10 @@ class ChatBoxStat extends State<ChatBoxMain> {
             ID: 'A',
             name: 'คนที่ 1');
         resBody = {};
-        resBody['Message'] = message.message;
-        resBody['Name'] = message.name;
-        resBody['Image_URL'] = message.imageURL;
+        resBody['message'] = message.message;
+        resBody['name'] = message.name;
+        resBody['imageURL'] = message.imageURL;
         resBody['ID'] = message.ID;
-        resBody['time'] = message.time;
-
         var jsonData = jsonEncode(resBody);
         // message.add(AdminText(message: messageController.text,));
         channel.sink.add(jsonData);
@@ -91,7 +96,7 @@ class ChatBoxStat extends State<ChatBoxMain> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  BackButtons(),
+                  BackButton(),
                   NameText(name: 'Test'),
                   CallButton(),
                   SettingButton(),
@@ -99,33 +104,21 @@ class ChatBoxStat extends State<ChatBoxMain> {
               ),
             ),
             Flexible(
-              child: FutureBuilder(
-                future: localStorage.ready,
-                builder:(context,snapshost) {
-                  if(snapshost.hasData) {
-                    var message = localStorage.getItem(widget.idSender);
-                    return ListView.builder(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      itemBuilder: (context, index) {
-                        if (message[index]['ID'] == widget.idSender.trim()) {
-                           return UserText(
-                            message: message[index]['Message'],
-                            UrlImage: message[index]['ImageURL'],
-                          );
-                        } else {
-                          return (AdminText(
-                            message: message[index]['Message'],
-                            UrlImage: message[index]['ImageURL'],
-                          ));
-                        }
-                      },
-                      itemCount: message==null ? 0:message.length,
-                    );
-                  }
-                  else{
-                    return Center(child: CircularProgressIndicator());
-                  }
-                }
+              child: Stack(
+                  children: [
+              Container(
+              decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("res/Background.png"),
+                fit: BoxFit.cover),
+    ),
+    ),
+              ListView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                itemBuilder: (context, index) {
+                  return messageList[index];
+                },
+                itemCount: messageList.length,
               ),
               // StreamBuilder(
               //     stream: channel.stream,
@@ -145,7 +138,7 @@ class ChatBoxStat extends State<ChatBoxMain> {
               //         itemCount: messageList.length,
               //       );
               //     }),
-            ),
+            ]),),
             Container(
               color: Colors.black38,
               height: MediaQuery.of(context).size.height * 0.075,

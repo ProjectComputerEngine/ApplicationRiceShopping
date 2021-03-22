@@ -107,7 +107,7 @@ class ChatState extends State<ChatMain> {
                                   NewMessgeText: '${inbox[index].NewShop}',
                                   nameUesr: '${inbox[index].Name}',
                                   lastmessage:
-                                  '${inbox[index].Message_Lasttime}',
+                                      '${inbox[index].Message_Lasttime}',
                                   imageurl: '${inbox[index].Image_URL}',
                                   time: '${inbox[index].Update_Lasttime}',
                                   ChangeColorsCircle: Colors.red,
@@ -118,9 +118,9 @@ class ChatState extends State<ChatMain> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => ChatBoxMain(
-                                              idSender:
-                                              inbox[index].ID_Message,
-                                            )));
+                                                  idSender:
+                                                      inbox[index].ID_Message,
+                                                )));
                                   },
                                 ),
                                 SpaceMessage(),

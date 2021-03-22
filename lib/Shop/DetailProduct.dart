@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:ApplicationRiceShopping/Shop/BillMain.dart';
@@ -105,12 +104,12 @@ class NewProductState extends State<DetailProduct> {
     }];
     if(bill == null){
       await localStorage.setItem('BillDetail', product);
-    }
+      }
     else{
       bill = await localStorage.getItem('BillDetail');
       bill.add(product[0]);
       await localStorage.setItem('BillDetail', bill);
-    }
+      }
   }
   void negativeCount() {
     setState(() {
@@ -168,154 +167,154 @@ class NewProductState extends State<DetailProduct> {
               ),
             ),
             Flexible(
-                child:
-                Stack(children: [
+              child:
+              Stack(children: [
+              Container(
+              decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("res/Background.png"),
+                fit: BoxFit.cover),
+    ),
+    ),ListView(
+                padding: EdgeInsets.fromLTRB(
+                    MediaQuery.of(context).size.width * 0.05,
+                    0,
+                    MediaQuery.of(context).size.width * 0.05,
+                    0),
+                children: [
+                  Container(
+                    child: Text(
+                      'รูป',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(),
+                    ),
+                  ),
+                  SpaceHeight(),
+                  Container(
+                      child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      LargeImageBox(
+                          content: Image.network(
+                        widget.product.UrlImage1,
+                      )),
+                      SpaceWidth(),
+                      TwoImageBox(
+                          contact: Image.network(
+                        widget.product.UrlImage1,
+                      )),
+                      SpaceWidth(),
+                      TwoImageBox(
+                          contact: Image.network(
+                        widget.product.UrlImage1,
+                      )),
+                    ],
+                  )),
+                  SpaceHeight(),
+                  Container(
+                    child: Text(
+                      'รายละเอียด',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  SpaceHeight(),
+                  SpaceHeight(),
                   Container(
                     decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("res/Background.png"),
-                          fit: BoxFit.cover),
-                    ),
-                  ),ListView(
-                    padding: EdgeInsets.fromLTRB(
-                        MediaQuery.of(context).size.width * 0.05,
-                        0,
-                        MediaQuery.of(context).size.width * 0.05,
-                        0),
-                    children: [
-                      Container(
-                        child: Text(
-                          'รูป',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(),
-                        ),
-                      ),
-                      SpaceHeight(),
-                      Container(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              LargeImageBox(
-                                  content: Image.network(
-                                    widget.product.UrlImage1,
-                                  )),
-                              SpaceWidth(),
-                              TwoImageBox(
-                                  contact: Image.network(
-                                    widget.product.UrlImage1,
-                                  )),
-                              SpaceWidth(),
-                              TwoImageBox(
-                                  contact: Image.network(
-                                    widget.product.UrlImage1,
-                                  )),
-                            ],
-                          )),
-                      SpaceHeight(),
-                      Container(
-                        child: Text(
-                          'รายละเอียด',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ),
-                      SpaceHeight(),
-                      SpaceHeight(),
-                      Container(
-                        decoration: BoxDecoration(
-                            border:
+                        border:
                             Border.all(color: Color.fromRGBO(32, 50, 50, 10)),
-                            borderRadius: BorderRadius.circular(8)),
-                        child: Column(
-                          children: [
-                            SpaceHeight(),
-                            SpaceHeight(),
-                            ProductNameTextField(
-                              value: widget.product.Name.replaceAll('\\n', '\n'),
-                              myNode: nameNode,
-                              nextNode: priceNode,
-                              name: nameController,
-                            ),
-                            PriceTextField(
-                              value: widget.product.Price,
-                              myNode: priceNode,
-                              nextNode: weightNode,
-                              price: priceController,
-                            ),
-                            WeightTextField(
-                              value: widget.product.Weight,
-                              myNode: weightNode,
-                              nextNode: widthNode,
-                              weight: weightController,
-                            ),
-                            SpaceText(),
-                            SizePacketText(),
-                            SpaceText(),
-                            SizePacketTextField(
-                              value1: widget.product.Size.split('x').first,
-                              value2: widget.product.Size.split('x').last,
-                              width: widthController,
-                              height: heightController,
-                              my1Node: widthNode,
-                              my2Node: heightNode,
-                              nextNode: numNode,
-                            ),
-                            SpaceText(),
-                            IncressProductText(),
-                            SpaceText(),
-                            IncressProductTextField(
-                              value: widget.product.Num,
-                              myNode: numNode,
-                              nextNode: dateStartNode,
-                              num: numController,
-                            ),
-                            ProductionDateTextField(
-                                myNode: dateStartNode,
-                                dateselect: () => _selectDate(context, storageNode),
-                                dateshow: widget.product.DateStart),
-                            PlaceTextField(
-                              value: widget.product.Storage,
-                              myNode: storageNode,
-                              nextNode: recommendNode,
-                              storage: storageController,
-                            ),
-                            RecommendTextField(
-                              value:
-                              widget.product.Recommend.replaceAll('\\n', '\n'),
-                              myNode: recommendNode,
-                              nextNode: noteNode,
-                              recommend: recommendController,
-                            ),
-                            NoteTextField(
-                              value: widget.product.Note.replaceAll('\\n', '\n'),
-                              myNode: noteNode,
-                              nextNode: saveNode,
-                              note: noteController,
-                            ),
-                            AddCountProduct(
-                              add: () => addCount(),
-                              nagative: () => negativeCount(),
-                              num: count,
-                              controller: controller,
-                              commit: () => commitCount(),
-                            ),
-                            SaveBUTTON(
-                              myNode: saveNode,
-                              save: () => showMyDialogAddCart(
-                                  addProduct: ()=>addProductToBill(widget.product.Name, count, double.parse(widget.product.Price), widget.product.ID),
-                                  context: context,
-                                  urlImage: widget.product.UrlImage1,
-                                  name: widget.product.Name,
-                                  num: count,
-                                  price: double.parse(widget.product.Price)),
-                              add: 'เพิ่มลงตะกร้า',
-                            )
-                          ],
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Column(
+                      children: [
+                        SpaceHeight(),
+                        SpaceHeight(),
+                        ProductNameTextField(
+                          value: widget.product.Name.replaceAll('\\n', '\n'),
+                          myNode: nameNode,
+                          nextNode: priceNode,
+                          name: nameController,
                         ),
-                      ),
-                    ],
+                        PriceTextField(
+                          value: widget.product.Price,
+                          myNode: priceNode,
+                          nextNode: weightNode,
+                          price: priceController,
+                        ),
+                        WeightTextField(
+                          value: widget.product.Weight,
+                          myNode: weightNode,
+                          nextNode: widthNode,
+                          weight: weightController,
+                        ),
+                        SpaceText(),
+                        SizePacketText(),
+                        SpaceText(),
+                        SizePacketTextField(
+                          value1: widget.product.Size.split('x').first,
+                          value2: widget.product.Size.split('x').last,
+                          width: widthController,
+                          height: heightController,
+                          my1Node: widthNode,
+                          my2Node: heightNode,
+                          nextNode: numNode,
+                        ),
+                        SpaceText(),
+                        IncressProductText(),
+                        SpaceText(),
+                        IncressProductTextField(
+                          value: widget.product.Num,
+                          myNode: numNode,
+                          nextNode: dateStartNode,
+                          num: numController,
+                        ),
+                        ProductionDateTextField(
+                            myNode: dateStartNode,
+                            dateselect: () => _selectDate(context, storageNode),
+                            dateshow: widget.product.DateStart),
+                        PlaceTextField(
+                          value: widget.product.Storage,
+                          myNode: storageNode,
+                          nextNode: recommendNode,
+                          storage: storageController,
+                        ),
+                        RecommendTextField(
+                          value:
+                              widget.product.Recommend.replaceAll('\\n', '\n'),
+                          myNode: recommendNode,
+                          nextNode: noteNode,
+                          recommend: recommendController,
+                        ),
+                        NoteTextField(
+                          value: widget.product.Note.replaceAll('\\n', '\n'),
+                          myNode: noteNode,
+                          nextNode: saveNode,
+                          note: noteController,
+                        ),
+                        AddCountProduct(
+                          add: () => addCount(),
+                          nagative: () => negativeCount(),
+                          num: count,
+                          controller: controller,
+                          commit: () => commitCount(),
+                        ),
+                        SaveBUTTON(
+                          myNode: saveNode,
+                          save: () => showMyDialogAddCart(
+                            addProduct: ()=>addProductToBill(widget.product.Name, count, double.parse(widget.product.Price), widget.product.ID),
+                              context: context,
+                              urlImage: widget.product.UrlImage1,
+                              name: widget.product.Name,
+                              num: count,
+                              price: double.parse(widget.product.Price)),
+                          add: 'เพิ่มลงตะกร้า',
+                        )
+                      ],
+                    ),
                   ),
-                ])),
+                ],
+              ),
+            ])),
           ],
         ),
       ),

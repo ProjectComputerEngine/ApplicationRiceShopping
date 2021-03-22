@@ -58,7 +58,7 @@ class BillState extends State<BillMain> {
                                 ),
                                 Container(
                                   width:
-                                  MediaQuery.of(context).size.width * 0.001,
+                                      MediaQuery.of(context).size.width * 0.001,
                                 ),
                                 TextBillButton(
                                   TextInButtons: ('รอโอน'),
@@ -99,7 +99,7 @@ class BillState extends State<BillMain> {
                                 ),
                                 Container(
                                   width:
-                                  MediaQuery.of(context).size.width * 0.001,
+                                      MediaQuery.of(context).size.width * 0.001,
                                 ),
                                 TextBillButton(
                                   TextInButtons: ('ยกเลิก'),
@@ -111,7 +111,7 @@ class BillState extends State<BillMain> {
                                 ),
                                 Container(
                                   width:
-                                  MediaQuery.of(context).size.width * 0.001,
+                                      MediaQuery.of(context).size.width * 0.001,
                                 ),
                                 TextBillButton(
                                   TextInButtons: ('คืนสินค้า'),
@@ -153,7 +153,7 @@ class BillState extends State<BillMain> {
                               itemBuilder: (context, index) {
                                 return Container(
                                   height:
-                                  MediaQuery.of(context).size.height * 0.1,
+                                      MediaQuery.of(context).size.height * 0.1,
                                   color: Color.fromRGBO(255, 243, 79, 0),
                                   child: FlatButton(
                                     onPressed: () => {},
@@ -162,38 +162,38 @@ class BillState extends State<BillMain> {
                                         CircleAvatar(
                                           backgroundImage: NetworkImage(
                                               snapshost.data[index]
-                                              ['Image_URL']),
+                                                  ['Image_URL']),
                                         ),
                                         Container(
                                           width: MediaQuery.of(context)
-                                              .size
-                                              .width *
+                                                  .size
+                                                  .width *
                                               0.01,
                                         ),
                                         Container(
                                           margin: EdgeInsets.symmetric(
                                               horizontal: 10),
                                           width: MediaQuery.of(context)
-                                              .size
-                                              .width *
+                                                  .size
+                                                  .width *
                                               0.3,
                                           alignment: Alignment.centerLeft,
                                           padding: EdgeInsets.fromLTRB(
                                               MediaQuery.of(context)
-                                                  .size
-                                                  .width *
+                                                      .size
+                                                      .width *
                                                   0,
                                               0.01,
                                               MediaQuery.of(context)
-                                                  .size
-                                                  .width *
+                                                      .size
+                                                      .width *
                                                   0,
                                               0.01),
                                           child: Column(
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Text(
                                                   'Order #${snapshost.data[index]['ID']}',
@@ -208,7 +208,7 @@ class BillState extends State<BillMain> {
                                                 ),
                                                 Text(
                                                     snapshost.data[index]
-                                                    ['Date'],
+                                                        ['Date'],
                                                     style: TextStyle(
                                                         fontSize: 10,
                                                         color: Colors.black38))
@@ -217,19 +217,19 @@ class BillState extends State<BillMain> {
                                         Container(
                                           alignment: Alignment.centerRight,
                                           width: MediaQuery.of(context)
-                                              .size
-                                              .width *
+                                                  .size
+                                                  .width *
                                               0.35,
                                           child: Column(
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.end,
+                                                CrossAxisAlignment.end,
                                             mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                                MainAxisAlignment.center,
                                             children: [
                                               Text(
                                                 'สถานะ:' +
                                                     snapshost.data[index]
-                                                    ['Status'],
+                                                        ['Status'],
                                                 style: TextStyle(
                                                     fontSize: 10,
                                                     color: Colors.black38),
