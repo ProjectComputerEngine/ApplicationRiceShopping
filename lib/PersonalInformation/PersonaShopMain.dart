@@ -25,11 +25,11 @@ class PersonalState extends State<PersonalShopMain> {
 
   Future<dynamic> Logout() async {
     localStorage.deleteItem('Shop').then((value) => {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => MainLogin()),
-          ),
-        });
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => MainLogin()),
+      ),
+    });
   }
 
   @override
@@ -68,13 +68,13 @@ class PersonalState extends State<PersonalShopMain> {
                       alignment: Alignment.center,
                       width: MediaQuery.of(context).size.width * 1,
                       height: MediaQuery.of(context).size.height * 1,
-                      color: Colors.black12,
+
                       child: Column(children: [
                         Container(
                           height: MediaQuery.of(context).size.height * 0.1,
                           child: Row(
                             children: [
-                              BackButtons(),
+                              BackButton(color: Colors.white,),
                               Flexible(child: Container()),
                               Container(
                                   margin: EdgeInsets.symmetric(horizontal: 10),
@@ -132,7 +132,7 @@ class PersonalState extends State<PersonalShopMain> {
                           TextPLACE: shop['Address'],
                         ),
                         Container(
-                          height: MediaQuery.of(context).size.height * 0.06,
+                          height: MediaQuery.of(context).size.height * 0.12,
                         ),
                         ClickButton(
                           TextButton: ('แก้ไขโปรไฟล์'),

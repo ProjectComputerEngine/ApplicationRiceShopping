@@ -3,6 +3,7 @@ import 'package:ApplicationRiceShopping/Admin/BillMain.dart';
 import 'package:ApplicationRiceShopping/Admin/InboxMain.dart';
 import 'package:flutter/material.dart';
 import 'package:ApplicationRiceShopping/PersonalInformation/PersonaAdminMain.dart';
+import 'package:ApplicationRiceShopping/Admin/StorageMain.dart';
 class menu extends StatelessWidget {
   const menu({
     Key key,
@@ -24,9 +25,12 @@ class menu extends StatelessWidget {
             },
           ),
           NavigationButton(
-            BarIcon: Icon(Icons.format_align_justify_outlined),
-            goto: (){},
-            BarText: 'การแจ้งเตือน',
+            BarIcon: Icon(Icons.storage),
+            goto: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>StorageMain()));
+
+            },
+            BarText: 'คลังสินค้า',
           ),
           NavigationButton(
             BarIcon: Icon(Icons.home),

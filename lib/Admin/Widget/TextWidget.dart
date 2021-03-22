@@ -44,7 +44,7 @@ class MessageButtons extends StatelessWidget {
     return FlatButton(
       onPressed: gotoMessage,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      color: Color.fromRGBO(32, 50, 50, 5),
+      color: Color.fromRGBO(42, 64, 87, 20),
       child: Container(
         height: MediaQuery.of(context).size.width * 0.15,
         child: Row(
@@ -118,65 +118,7 @@ class MessageButtons extends StatelessWidget {
   }
 }
 
-class SearchBar extends StatelessWidget {
-  const SearchBar({
-    Key key,
-  }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
-        child: Row(
-          children: [
-            Container(
-              child: TextField(
-                // controller: controller,
-                cursorColor: Colors.black,
-                decoration: InputDecoration(
-                  //isDense: true,
-                  contentPadding: EdgeInsets.fromLTRB(
-                      MediaQuery.of(context).size.width * 0.05,
-                      0.15,
-                      MediaQuery.of(context).size.width * 0.05,
-                      0.5),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-              ),
-              width: MediaQuery.of(context).size.width * 0.7,
-              height: MediaQuery.of(context).size.height * 0.06,
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(8)),
-              padding: EdgeInsets.fromLTRB(
-                  MediaQuery.of(context).size.height * 0,
-                  0,
-                  MediaQuery.of(context).size.width * 0,
-                  0),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.01,
-            ),
-            FlatButton(
-              color: Colors.white,
-              minWidth: MediaQuery.of(context).size.width * 0.01,
-              height: MediaQuery.of(context).size.height * 0.05,
-              onPressed: () => {},
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6)),
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.08,
-                child: Text(
-                  'ค้นหา',
-                  style: TextStyle(color: Colors.black, fontSize: 10),
-                ),
-              ),
-            )
-          ],
-        ));
-  }
-}
 
 class MassageTitle extends StatelessWidget {
   const MassageTitle({
@@ -186,6 +128,7 @@ class MassageTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width*0.05,0,MediaQuery.of(context).size.width*0.01,0),
       alignment: Alignment.centerLeft,
       child: Text(
         'ข้อความ',
@@ -233,7 +176,7 @@ class LessRiceButton extends StatelessWidget {
         color: Colors.white,
 
         child: FlatButton(
-            //minWidth: MediaQuery.of(context).size.width*0.05,
+          //minWidth: MediaQuery.of(context).size.width*0.05,
             padding: EdgeInsets.symmetric(horizontal: 8),
             onPressed: () => {},
             child: Column(

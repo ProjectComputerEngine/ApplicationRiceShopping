@@ -37,19 +37,28 @@ class ChatBoxStat extends State<ChatBoxMain> {
               ),
             ),
             Flexible(
-                child: ListView(
-                  padding: EdgeInsets.fromLTRB(
-                      MediaQuery.of(context).size.width * 0.05,
-                      0,
-                      MediaQuery.of(context).size.width * 0.05,
-                      0),
+              child: Stack(
                   children: [
-                    Spaceheight(),
-                    UserText(),
-                    Spaceheight(),
-                    AdminText(),
-                  ],
-                )),
+                    Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage("res/BackgroundShop.png"),
+                            fit: BoxFit.cover),
+                      ),
+                    ),
+                    ListView(
+                      padding: EdgeInsets.fromLTRB(
+                          MediaQuery.of(context).size.width * 0.05,
+                          0,
+                          MediaQuery.of(context).size.width * 0.05,
+                          0),
+                      children: [
+                        Spaceheight(),
+                        UserText(),
+                        Spaceheight(),
+                        AdminText(),
+                      ],
+                    )]),),
             Container(
               color: Colors.black38,
               height: MediaQuery.of(context).size.height * 0.075,

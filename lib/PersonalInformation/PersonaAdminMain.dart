@@ -58,13 +58,15 @@ class PersonalState extends State<PersonalAdminMain> {
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width * 1,
               height: MediaQuery.of(context).size.height * 1,
-              color: Colors.black12,
+
               child: Column(children: [
                 Container(
                   height: MediaQuery.of(context).size.height * 0.1,
                   child: Row(
                     children: [
-                      BackButtons(),
+                      BackButton(
+                        color: Colors.white,
+                      ),
                     ],
                   ),
                 ),
@@ -73,8 +75,8 @@ class PersonalState extends State<PersonalAdminMain> {
                     height: MediaQuery.of(context).size.height * 0.15,
                     width: MediaQuery.of(context).size.width * 0.25,
                     child: CircleAvatar(
-                  backgroundImage: NetworkImage(AdminData['Image_URL']),
-                )),
+                      backgroundImage: NetworkImage(AdminData['Image_URL']),
+                    )),
                 TextName(
                   SelfNameText: AdminData['Name'],
                 ),
@@ -95,19 +97,13 @@ class PersonalState extends State<PersonalAdminMain> {
                 Container(
                   height: MediaQuery.of(context).size.height * 0.01,
                 ),
-                PlaceText(
-                  TextPLACE:
-                      'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF',
-                ),
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.06,
+                  height: MediaQuery.of(context).size.height * 0.2,
                 ),
                 ClickButton(
                   TextButton: ('แก้ไขโปรไฟล์'),
                 ),
-                ClickButton(
-                  TextButton: ('ประวัติการเข้าใช้'),
-                ),
+
               ]),
             )
           ],

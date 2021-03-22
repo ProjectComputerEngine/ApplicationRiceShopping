@@ -96,7 +96,7 @@ class ChatBoxStat extends State<ChatBoxMain> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  BackButtons(),
+                  BackButton(),
                   NameText(name: 'Test'),
                   CallButton(),
                   SettingButton(),
@@ -104,32 +104,41 @@ class ChatBoxStat extends State<ChatBoxMain> {
               ),
             ),
             Flexible(
-              child: ListView.builder(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                itemBuilder: (context, index) {
-                  return messageList[index];
-                },
-                itemCount: messageList.length,
-              ),
-              // StreamBuilder(
-              //     stream: channel.stream,
-              //     builder: (context, snaphost) {
-              //
-              //       if (snaphost.hasData) {
-              //         var data = jsonDecode(snaphost.data);
-              //         if(snaphost.connectionState == ConnectionState.active){
-              //           var data = jsonDecode(snaphost.data);
-              //           messageList.add(AdminText(message: data['message'],));
-              //         }
-              //       } else {}
-              //       return ListView.builder(
-              //         itemBuilder: (context, index) {
-              //           return messageList[index];
-              //         },
-              //         itemCount: messageList.length,
-              //       );
-              //     }),
-            ),
+              child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage("res/Background.png"),
+                            fit: BoxFit.cover),
+                      ),
+                    ),
+                    ListView.builder(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      itemBuilder: (context, index) {
+                        return messageList[index];
+                      },
+                      itemCount: messageList.length,
+                    ),
+                    // StreamBuilder(
+                    //     stream: channel.stream,
+                    //     builder: (context, snaphost) {
+                    //
+                    //       if (snaphost.hasData) {
+                    //         var data = jsonDecode(snaphost.data);
+                    //         if(snaphost.connectionState == ConnectionState.active){
+                    //           var data = jsonDecode(snaphost.data);
+                    //           messageList.add(AdminText(message: data['message'],));
+                    //         }
+                    //       } else {}
+                    //       return ListView.builder(
+                    //         itemBuilder: (context, index) {
+                    //           return messageList[index];
+                    //         },
+                    //         itemCount: messageList.length,
+                    //       );
+                    //     }),
+                  ]),),
             Container(
               color: Colors.black38,
               height: MediaQuery.of(context).size.height * 0.075,

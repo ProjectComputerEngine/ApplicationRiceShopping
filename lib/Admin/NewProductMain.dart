@@ -69,22 +69,22 @@ class NewProductState extends State<NewProductMain> {
     if(formKey.currentState.validate()){
       if(addDataProduct.UrlImage !=null){
         selectDate == null ? selectDate=startDate:null;
-            await addDataProduct.AddData(
-              context: context,
-            name: nameController.text,
-            storage: storageController.text,
-            height: heightController.text,
-            width: widthController.text,
-            dateStart: DateFormat('yyyy-MM-dd HH:mm:ss').format(selectDate) +
-                "." +
-                selectDate.millisecond.toString(),
-            note: noteController.text,
-            num: numController.text,
-            price: priceController.text,
-            recommend:
-            recommendController.text,
-            weight: weightController.text,
-          );
+        await addDataProduct.AddData(
+          context: context,
+          name: nameController.text,
+          storage: storageController.text,
+          height: heightController.text,
+          width: widthController.text,
+          dateStart: DateFormat('yyyy-MM-dd HH:mm:ss').format(selectDate) +
+              "." +
+              selectDate.millisecond.toString(),
+          note: noteController.text,
+          num: numController.text,
+          price: priceController.text,
+          recommend:
+          recommendController.text,
+          weight: weightController.text,
+        );
         // Navigator.pop(context);
       }
       else{
@@ -131,156 +131,164 @@ class NewProductState extends State<NewProductMain> {
               color: Color.fromRGBO(32, 50, 50, 10),
               height: MediaQuery.of(context).size.height * 0.1,
               child: Row(
-                children: [BackButtons(), AddProductText()],
+                children: [BackButton(color: Colors.white,), AddProductText()],
               ),
             ),
             Form(
               key: formKey,
               child: Flexible(
-                child: ListView(
-                  padding: EdgeInsets.fromLTRB(
-                      MediaQuery.of(context).size.width * 0.05,
-                      0,
-                      MediaQuery.of(context).size.width * 0.05,
-                      0),
-                  children: [
-                    Container(
-                      child: Text(
-                        'รูป',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(),
-                      ),
-                    ),
-                    SpaceHeight(),
-                    Container(
-                        child: StreamBuilder(
-                      stream: streamController.stream,
-                      builder: (context, snapshot) {
-                        Widget contact;
-                        Widget contacttwo;
-                        if (snapshot.hasData){
-                          contact = Image.file(addDataProduct.file);
-                          contacttwo = Image.file(addDataProduct.file);
-                        } else {
-                          contact = Icon(
-                            Icons.add_circle,
-                            color: Colors.grey,
-                          );
-                          contacttwo = Container();
-                        }
-                        return Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            LargeImageBox(
-                              content: contact,
-                              file_picker: () => addImage(),
-                            ),
-                            SpaceWidth(),
-                            TwoImageBox(
-                              contact: contacttwo,
-                            ),
-                            SpaceWidth(),
-                            TwoImageBox(
-                              contact: contacttwo,
-                            ),
-                          ],
-                        );
-                      },
-                    )),
-                    SpaceHeight(),
-                    Container(
-                      child: Text(
-                        'รายละเอียด',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ),
-                    SpaceHeight(),
-                    SpaceHeight(),
+                  child:Stack(children: [
                     Container(
                       decoration: BoxDecoration(
-                          border:
-                              Border.all(color: Color.fromRGBO(32, 50, 50, 10)),
-                          borderRadius: BorderRadius.circular(8)),
-                      child: Column(
-                        children: [
-                          SpaceHeight(),
-                          SpaceHeight(),
-                          ProductNameTextField(
-                            enable: true,
-                            error: 'กรุณาใส่ชื่อสินค้า',
-                            myNode: nameNode,
-                            nextNode: priceNode,
-                            name: nameController,
-                          ),
-                          PriceTextField(
-                            enable: true,
-                            error: 'กรุณาใส่ราคาสินค้า',
-                            myNode: priceNode,
-                            nextNode: weightNode,
-                            price: priceController,
-                          ),
-                          WeightTextField(
-                            enable: true,
-                            error: 'กรุณาใส่น้ำหนักสินค้า',
-                            myNode: weightNode,
-                            nextNode: widthNode,
-                            weight: weightController,
-                          ),
-                          SpaceText(),
-                          SizePacketText(),
-                          SpaceText(),
-                          SizePacketTextField(
-                            enable: true,
-                            error: 'กรุณาใส่ขนาดของบรรจุ๓ัณฑ์',
-                            width: widthController,
-                            height: heightController,
-                            my1Node: widthNode,
-                            my2Node: heightNode,
-                            nextNode: numNode,
-                          ),
-                          SpaceText(),
-                          IncressProductText(),
-                          SpaceText(),
-                          IncressProductTextField(
-                            enable: true,
-                            error: 'กรุณาใส่จำนวนของสินค้า',
-                            myNode: numNode,
-                            nextNode: dateStartNode,
-                            num: numController,
-                          ),
-                          ProductionDateTextField(
-                            myNode: dateStartNode,
-                              dateselect: () => _selectDate(context,storageNode),
-                              dateshow: selectDate == null
-                                  ? DateFormat('yyyy-MM-dd')
-                                      .format(DateTime.now())
-                                  : DateFormat('yyyy-MM-dd ').format(selectDate)),
-                          PlaceTextField(
-                            error: 'กรุณาใส่สถานทีผลิตของสินค้า',
-                            myNode: storageNode,
-                            nextNode: recommendNode,
-                            storage: storageController,
-                          ),
-                          RecommendTextField(
-                            error: 'กรุณาใส่คำเเนะนำของสินค้า',
-                            myNode: recommendNode,
-                            nextNode: noteNode,
-                            recommend: recommendController,
-                          ),
-                          NoteTextField(
-                            error: 'กรุณาใส่หมายเหตุของสินค้า',
-                            myNode: noteNode,
-                            nextNode: saveNode,
-                            note: noteController,
-                          ),
-                          SaveBUTTON(myNode: saveNode,save: () =>addData(),)
-                        ],
+                        image: DecorationImage(
+                            image: AssetImage("res/BackgroundShop.png"),
+                            fit: BoxFit.cover),
                       ),
                     ),
-                  ],
-                ),
-              ),
+                    ListView(
+                      padding: EdgeInsets.fromLTRB(
+                          MediaQuery.of(context).size.width * 0.05,
+                          0,
+                          MediaQuery.of(context).size.width * 0.05,
+                          0),
+                      children: [
+                        Container(
+                          child: Text(
+                            'รูป',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(),
+                          ),
+                        ),
+                        SpaceHeight(),
+                        Container(
+                            child: StreamBuilder(
+                              stream: streamController.stream,
+                              builder: (context, snapshot) {
+                                Widget contact;
+                                Widget contacttwo;
+                                if (snapshot.hasData){
+                                  contact = Image.file(addDataProduct.file);
+                                  contacttwo = Image.file(addDataProduct.file);
+                                } else {
+                                  contact = Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey,
+                                  );
+                                  contacttwo = Container();
+                                }
+                                return Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    LargeImageBox(
+                                      content: contact,
+                                      file_picker: () => addImage(),
+                                    ),
+                                    SpaceWidth(),
+                                    TwoImageBox(
+                                      contact: contacttwo,
+                                    ),
+                                    SpaceWidth(),
+                                    TwoImageBox(
+                                      contact: contacttwo,
+                                    ),
+                                  ],
+                                );
+                              },
+                            )),
+                        SpaceHeight(),
+                        Container(
+                          child: Text(
+                            'รายละเอียด',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
+                        SpaceHeight(),
+                        SpaceHeight(),
+                        Container(
+                          decoration: BoxDecoration(
+                              border:
+                              Border.all(color: Color.fromRGBO(32, 50, 50, 10)),
+                              borderRadius: BorderRadius.circular(8)),
+                          child: Column(
+                            children: [
+                              SpaceHeight(),
+                              SpaceHeight(),
+                              ProductNameTextField(
+                                enable: true,
+                                error: 'กรุณาใส่ชื่อสินค้า',
+                                myNode: nameNode,
+                                nextNode: priceNode,
+                                name: nameController,
+                              ),
+                              PriceTextField(
+                                enable: true,
+                                error: 'กรุณาใส่ราคาสินค้า',
+                                myNode: priceNode,
+                                nextNode: weightNode,
+                                price: priceController,
+                              ),
+                              WeightTextField(
+                                enable: true,
+                                error: 'กรุณาใส่น้ำหนักสินค้า',
+                                myNode: weightNode,
+                                nextNode: widthNode,
+                                weight: weightController,
+                              ),
+                              SpaceText(),
+                              SizePacketText(),
+                              SpaceText(),
+                              SizePacketTextField(
+                                enable: true,
+                                error: 'กรุณาใส่ขนาดของบรรจุ๓ัณฑ์',
+                                width: widthController,
+                                height: heightController,
+                                my1Node: widthNode,
+                                my2Node: heightNode,
+                                nextNode: numNode,
+                              ),
+                              SpaceText(),
+                              IncressProductText(),
+                              SpaceText(),
+                              IncressProductTextField(
+                                enable: true,
+                                error: 'กรุณาใส่จำนวนของสินค้า',
+                                myNode: numNode,
+                                nextNode: dateStartNode,
+                                num: numController,
+                              ),
+                              ProductionDateTextField(
+                                  myNode: dateStartNode,
+                                  dateselect: () => _selectDate(context,storageNode),
+                                  dateshow: selectDate == null
+                                      ? DateFormat('yyyy-MM-dd')
+                                      .format(DateTime.now())
+                                      : DateFormat('yyyy-MM-dd ').format(selectDate)),
+                              PlaceTextField(
+                                error: 'กรุณาใส่สถานทีผลิตของสินค้า',
+                                myNode: storageNode,
+                                nextNode: recommendNode,
+                                storage: storageController,
+                              ),
+                              RecommendTextField(
+                                error: 'กรุณาใส่คำเเนะนำของสินค้า',
+                                myNode: recommendNode,
+                                nextNode: noteNode,
+                                recommend: recommendController,
+                              ),
+                              NoteTextField(
+                                error: 'กรุณาใส่หมายเหตุของสินค้า',
+                                myNode: noteNode,
+                                nextNode: saveNode,
+                                note: noteController,
+                              ),
+                              SaveBUTTON(myNode: saveNode,save: () =>addData(),)
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ])),
             ),
           ],
         ),
