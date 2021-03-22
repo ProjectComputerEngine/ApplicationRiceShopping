@@ -1,9 +1,10 @@
 import 'package:ApplicationRiceShopping/Admin/AdminMain.dart';
-import 'package:ApplicationRiceShopping/Admin/BillMain.dart';
 import 'package:ApplicationRiceShopping/Admin/InboxMain.dart';
+import 'package:ApplicationRiceShopping/Shop/StorageMain.dart';
 import 'package:flutter/material.dart';
-import 'package:ApplicationRiceShopping/PersonalInformation/PersonaAdminMain.dart';
-import 'package:ApplicationRiceShopping/Admin/StorageMain.dart';
+import 'package:ApplicationRiceShopping/PersonalInformation/PersonaShopMain.dart';
+
+import '../BillMain.dart';
 class menu extends StatelessWidget {
   const menu({
     Key key,
@@ -20,29 +21,26 @@ class menu extends StatelessWidget {
           NavigationButton(
             BarIcon: Icon(Icons.book),
             BarText: 'คำสั่งซื้อ',
+            goto: (){},
+          ),
+          NavigationButton(
+            BarIcon: Icon(Icons.shopping_cart_rounded),
             goto: (){
               Navigator.push(context, MaterialPageRoute(builder: (context)=>BillMain()));
             },
+            BarText: 'ตะกร้า',
           ),
           NavigationButton(
-            BarIcon: Icon(Icons.storage),
+            BarIcon: Icon(Icons.store),
+            BarText: 'สินค้า',
             goto: (){
               Navigator.push(context, MaterialPageRoute(builder: (context)=>StorageMain()));
-
-            },
-            BarText: 'คลังสินค้า',
-          ),
-          NavigationButton(
-            BarIcon: Icon(Icons.home),
-            BarText: 'หน้าหลัก',
-            goto: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>AdminMain()));
             },
           ),
           NavigationButton(
             BarIcon: Icon(Icons.account_circle),
             goto: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>PersonalAdminMain()));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>PersonalShopMain()));
             },
             BarText: 'ข้อมูลส่วนตัว',
           ),
@@ -87,7 +85,7 @@ class NavigationButton extends StatelessWidget {
             ),
             Text(
               BarText,
-              style: TextStyle(fontSize: 8),
+              style: TextStyle(fontSize: 10),
             )
           ],
         ),
